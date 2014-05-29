@@ -5,6 +5,7 @@ public class RoomConnection : MonoBehaviour {
 
 
     public Room ParentRoom;
+    public RoomConnection OtherRoomConnection;
 	// Use this for initialization
 	void Start () {
         ParentRoom = transform.parent.GetComponent<Room>();	

@@ -5,6 +5,7 @@ public class BulletController : MonoBehaviour {
 
     public GameObject SparkPrefab;
     public float Lifetime = 3.0f;
+    public float Damage = 1.0f;
     private Transform Remaining;
     private float Timeout = 0.0f;
 	// Use this for initialization
@@ -23,6 +24,11 @@ public class BulletController : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) 
     {
+        ShipController ship = collision.collider.GetComponent<ShipController>();
+        if (ship != null)
+        {
+            ship.DealDamage(Damage);
+        }
         DestroyBullet(collision.contacts[0].point, collision.contacts[0].normal);
     }
 
@@ -34,10 +40,10 @@ public class BulletController : MonoBehaviour {
         }
         if (Remaining != null)
         {
-            AutoKillAudioController killAudio = Remaining.GetComponent<AutoKillAudioController>();
-            if (killAudio != null)
+            AutoKillController autoKill = Remaining.GetComponent<AutoKillController>();
+            if (autoKill != null)
             {
-                killAudio.Enabled = true;
+                autoKill.Enabled = true;
             }
             Remaining.parent = null;
             Remaining.transform.position = transform.position;

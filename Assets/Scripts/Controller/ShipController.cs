@@ -10,8 +10,10 @@ public class ShipController : MonoBehaviour {
     public GunController CurrentGun;
     public GunController Gun1;
     public GunController Gun2;
+    public GameObject ShipDeath;
     public float FlightSpeed = 15.0f;
     public float RotateTorque = 1.0f;
+    public float Hull = 10.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -57,5 +59,25 @@ public class ShipController : MonoBehaviour {
     public void ChangeGun(GunController gun)
     {
         CurrentGun = gun;
+    }
+
+    public bool IsDead()
+    {
+        return Hull <= 0.0f;
+    }
+
+    public void DealDamage(float damage)
+    {
+        if (!IsDead())
+        {
+            Hull -= damage;
+            Debug.Log("Hull now at: " + Hull);
+
+            if (IsDead() && ShipDeath != null)
+            {
+                Transform death = Instantiate(ShipDeath, transform.position, Quaternion.identity) as Transform;
+                death.parent = transform.parent;
+            }
+        }
     }
 }

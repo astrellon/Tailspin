@@ -5,11 +5,9 @@ using System.Collections.Generic;
 public class ShipController : MonoBehaviour {
 
     private float nextFire = 0.0f;
-    private List<Transform> HardpointsLaser = new List<Transform>();
-    private List<Transform> HardpointsLaser2 = new List<Transform>();
+    private Dictionary<ShipHardpointController.Type, List<ShipHardpointController>> Hardpoints = new Dictionary<ShipHardpointController.Type, List<ShipHardpointController>>();
     public GunController CurrentGun;
-    public GunController Gun1;
-    public GunController Gun2;
+    public List<GunController> Guns;
     public GameObject ShipDeath;
     public float FlightSpeed = 15.0f;
     public float RotateTorque = 1.0f;
@@ -17,15 +15,19 @@ public class ShipController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        HardpointsLaser.Add(transform.Find("HardpointLeft"));
-        HardpointsLaser.Add(transform.Find("HardpointRight"));
-
-        HardpointsLaser2.AddRange(HardpointsLaser);
-        HardpointsLaser2.Add(transform.Find("HardpointLeft2"));
-        HardpointsLaser2.Add(transform.Find("HardpointRight2"));
+        ShipHardpointController[] hardpoints = GetComponentsInChildren<ShipHardpointController>();
+        foreach (ShipHardpointController controller in hardpoints)
+        {
+            ShipHardpointController.Type type = controller.HardpointType;
+            if (!Hardpoints.ContainsKey(type))
+            {
+                Hardpoints[type] = new List<ShipHardpointController>();
+            }
+            Hardpoints[type].Add(controller);
+        }
 	}
 
-    public void FireGun(GunController gun, IList<Transform> hardpoints)
+    public void FireGun(GunController gun, params List<ShipHardpointController>[] hardpoints)
     {
         if (gun == null || nextFire > Time.time)
         {
@@ -38,12 +40,15 @@ public class ShipController : MonoBehaviour {
     {
         if (CurrentGun != null)
         {
-            IList<Transform> hardpoints = HardpointsLaser;
+            List<ShipHardpointController> hardpoints = Hardpoints[ShipHardpointController.Type.LASER];
             if (CurrentGun.GunType == "Laser2")
             {
-                hardpoints = HardpointsLaser2;
+                FireGun(CurrentGun, hardpoints, Hardpoints[ShipHardpointController.Type.LASER_2]);
             }
-            FireGun(CurrentGun, hardpoints);
+            else
+            {
+                FireGun(CurrentGun, hardpoints);
+            }
         }
     }
 
@@ -75,8 +80,9 @@ public class ShipController : MonoBehaviour {
 
             if (IsDead() && ShipDeath != null)
             {
-                Transform death = Instantiate(ShipDeath, transform.position, Quaternion.identity) as Transform;
-                death.parent = transform.parent;
+                GameObject death = Instantiate(ShipDeath, transform.position, Quaternion.identity) as GameObject;
+                death.transform.parent = transform.parent;
+                Destroy(transform.gameObject);
             }
         }
     }

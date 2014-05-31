@@ -43,11 +43,11 @@ public class PlayerController : ShipController {
         }
         if (Input.GetKey (KeyCode.Alpha1))
         {
-            ChangeGun(Gun1);
+            ChangeGun(Guns[0]);
         }
         if (Input.GetKey (KeyCode.Alpha2))
         {
-            ChangeGun(Gun2);
+            ChangeGun(Guns[1]);
         }
 
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) 

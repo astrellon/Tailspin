@@ -9,17 +9,20 @@ public class GunController : MonoBehaviour {
 
     public float Cooldown = 0.4f;
 
-    public void Fire(IList<Transform> hardpoints) 
+    public void Fire(params List<ShipHardpointController>[] hardpoints) 
     {
         if (BulletPrefab == null)
         {
             return;
         }
-        foreach (Transform trans in hardpoints)
+        foreach (List<ShipHardpointController> list in hardpoints)
         {
-            GameObject newBullet = Instantiate(BulletPrefab, trans.position, trans.rotation) as GameObject;
-            newBullet.rigidbody.velocity = transform.forward * 30;
-            Physics.IgnoreCollision(newBullet.collider, collider);
+            foreach (ShipHardpointController obj in list)
+            {
+                GameObject newBullet = Instantiate(BulletPrefab, obj.transform.position, obj.transform.rotation) as GameObject;
+                newBullet.rigidbody.velocity = transform.forward * 30;
+                Physics.IgnoreCollision(newBullet.collider, collider);
+            }
         }
         if (FireClip != null)
         {

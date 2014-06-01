@@ -9,15 +9,15 @@ public class GunController : MonoBehaviour {
 
     public float Cooldown = 0.4f;
 
-    public void Fire(params List<ShipHardpointController>[] hardpoints) 
+    public void Fire(params List<HardpointController>[] hardpoints) 
     {
         if (BulletPrefab == null)
         {
             return;
         }
-        foreach (List<ShipHardpointController> list in hardpoints)
+        foreach (List<HardpointController> list in hardpoints)
         {
-            foreach (ShipHardpointController obj in list)
+            foreach (HardpointController obj in list)
             {
                 GameObject newBullet = Instantiate(BulletPrefab, obj.transform.position, obj.transform.rotation) as GameObject;
                 newBullet.rigidbody.velocity = transform.forward * 30;

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ShipHardpointController : MonoBehaviour {
+public class HardpointController : MonoBehaviour {
 
     public enum Type {
         LASER, LASER_2, VULCAN

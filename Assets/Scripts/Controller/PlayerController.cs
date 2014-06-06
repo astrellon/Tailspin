@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : ShipController {
+    void Start () {
+         
+    }
 	void Update () {
         if (!Screen.lockCursor)
         {

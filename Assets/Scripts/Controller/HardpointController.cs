@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class HardpointController : MonoBehaviour {
 
     public enum Type {
-        LASER, LASER_2, VULCAN
+        MOUNTING, LASER, LASER_2, VULCAN
     }
     public Type HardpointType = Type.LASER;
 

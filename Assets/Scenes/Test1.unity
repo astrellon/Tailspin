@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Attached: {fileID: 0}
 --- !u!1 &117868656
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+  Attached: {fileID: 0}
 --- !u!1 &401775451
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +491,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 401775451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.92606258, y: -.453518748, z: .575221479}
+  m_LocalPosition: {x: -22.0376549, y: -.453518748, z: .575221479}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1536882169}
@@ -510,6 +512,7 @@ MonoBehaviour:
   ParentAttachment: {fileID: 960598591}
   AttachmentType: gun
   AttachmentGroup: laser1
+  PullRadius: 10
   BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
   FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
   GunType: Laser
@@ -599,6 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enabled: 1
+  CapturedBy: {fileID: 0}
 --- !u!64 &401775457
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -986,6 +990,7 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: none
   AttachmentGroup: group
+  PullRadius: 10
   CurrentGun: {fileID: 0}
   Guns:
   - {fileID: 0}
@@ -1234,6 +1239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Attached: {fileID: 0}
 --- !u!1 &1034143187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,6 +1493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+  Attached: {fileID: 0}
 --- !u!114 &1337083219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1501,6 +1508,7 @@ MonoBehaviour:
   Radius: 20
   Strength: 2
   Enabled: 1
+  EnableGeneralPull: 0
   PullSpecific: {fileID: 0}
 --- !u!1 &1391100545
 GameObject:
@@ -1542,6 +1550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+  Attached: {fileID: 0}
 --- !u!114 &1391100548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,6 +1565,7 @@ MonoBehaviour:
   Radius: 20
   Strength: 2
   Enabled: 1
+  EnableGeneralPull: 0
   PullSpecific: {fileID: 0}
 --- !u!1 &1467001166
 GameObject:
@@ -1670,6 +1680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Attached: {fileID: 0}
 --- !u!4 &1473353354
 Transform:
   m_ObjectHideFlags: 0
@@ -1763,6 +1774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+  Attached: {fileID: 0}
 --- !u!1 &1746720908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2135,6 +2147,7 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: none
   AttachmentGroup: group
+  PullRadius: 10
   CurrentGun: {fileID: 11400002, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
   Guns: []
   ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
@@ -2242,7 +2255,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: ab5dbe75d1e692e4ca2cfb30488f1642, type: 2}
+  - {fileID: 2100000, guid: f2f19fb531cf3f544b006aa8f141910b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

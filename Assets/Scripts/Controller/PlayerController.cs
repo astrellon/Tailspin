@@ -7,6 +7,8 @@ public class PlayerController : ShipController {
          
     }
 	void Update () {
+   //     base.Update();
+
         if (!Screen.lockCursor)
         {
             return;

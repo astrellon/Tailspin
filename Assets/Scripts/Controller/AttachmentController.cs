@@ -4,10 +4,19 @@ using System.Collections.Generic;
 
 public class AttachmentController : MonoBehaviour {
 
-    public struct PullTogether {
-        HardpointController Point;
-        AttachmentController Attachment;
-        HardpointController AttachmentPoint;
+    public class PullTogether {
+        public HardpointController Point { get; private set; }
+        public AttachmentController Attachment { get; private set; }
+        public PullableController AttachmentPullable { get; private set; }
+        public HardpointController AttachmentPoint { get; private set; }
+
+        public PullTogether(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
+        {
+            Point = point;
+            Attachment = attachment;
+            AttachmentPoint = attachmentPoint;
+            AttachmentPullable = attachment.GetComponent<PullableController>();
+        }
     }
 
     protected Dictionary<int, AttachmentController> ConnectedAttachments = new Dictionary<int, AttachmentController>();
@@ -32,6 +41,15 @@ public class AttachmentController : MonoBehaviour {
         DiscoverHardpoints();
     }
 
+    void Update () {
+        Debug.Log("Togeth? " + PullingTogether.Count);
+        foreach (PullTogether pulling in PullingTogether)
+        {
+            Vector3 toPoints = pulling.AttachmentPoint.transform.position - pulling.Point.transform.position; 
+            Debug.Log("Distance: " + toPoints.magnitude);
+        }
+    }
+
     public object CallAttachInterface(string funcName, params object[] args)
     {
         if (AttachInterface.ContainsKey(funcName))
@@ -50,6 +68,29 @@ public class AttachmentController : MonoBehaviour {
                 attachment.up* -1, point.up);
 
         return rotateUp * rotateForward;
+    }
+
+    public virtual void PullAndAttach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
+    {
+        PullableController pullable = attachment.GetComponent<PullableController>();
+        if (pullable == null)
+        {
+            Debug.Log("Cannot pull object that is not pullable.");
+            return;
+        }
+
+
+        PullObjectsController puller = point.GetComponent<PullObjectsController>();
+        if (puller == null)
+        {
+            Debug.Log("Cannot pull and attach as there is no puller on the point.");
+            Attach(point, attachment, attachmentPoint);
+            return;
+        }
+        puller.PullSpecific = pullable;
+        pullable.CapturedBy = puller;
+
+        PullingTogether.Add(new PullTogether(point, attachment, attachmentPoint));
     }
 
     public virtual void Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)

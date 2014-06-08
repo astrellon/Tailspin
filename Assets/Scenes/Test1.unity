@@ -475,7 +475,7 @@ GameObject:
   - 82: {fileID: 401775455}
   - 114: {fileID: 401775456}
   - 64: {fileID: 401775457}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,8 +522,8 @@ Rigidbody:
   m_GameObject: {fileID: 401775451}
   serializedVersion: 2
   m_Mass: .100000001
-  m_Drag: 0
-  m_AngularDrag: .0500000007
+  m_Drag: 2
+  m_AngularDrag: .200000003
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -893,6 +893,14 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 098f6791d8fc7fb4c845839132d29282, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 098f6791d8fc7fb4c845839132d29282, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 098f6791d8fc7fb4c845839132d29282, type: 3}
   m_RootGameObject: {fileID: 1536882168}
@@ -909,10 +917,7 @@ GameObject:
   - 54: {fileID: 960598590}
   - 114: {fileID: 960598591}
   - 82: {fileID: 960598592}
-  - 114: {fileID: 960598593}
-  - 114: {fileID: 960598594}
   - 64: {fileID: 960598588}
-  - 114: {fileID: 960598595}
   m_Layer: 9
   m_Name: PlayerShip
   m_TagString: Untagged
@@ -981,10 +986,10 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: none
   AttachmentGroup: group
-  CurrentGun: {fileID: 960598593}
+  CurrentGun: {fileID: 0}
   Guns:
-  - {fileID: 960598593}
-  - {fileID: 960598594}
+  - {fileID: 0}
+  - {fileID: 0}
   ShipDeath: {fileID: 0}
   FlightSpeed: 20000
   RotateTorque: 1000
@@ -1048,57 +1053,6 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
---- !u!114 &960598593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 960598585}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3c39b32f644a7448003672735ee226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParentAttachment: {fileID: 0}
-  AttachmentType: none
-  AttachmentGroup: group
-  BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
-  FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
-  GunType: Laser
-  Cooldown: .400000006
---- !u!114 &960598594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 960598585}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c3c39b32f644a7448003672735ee226, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParentAttachment: {fileID: 0}
-  AttachmentType: none
-  AttachmentGroup: group
-  BulletPrefab: {fileID: 100000, guid: 0f4a9394bc20f45478b7817d68f1e981, type: 2}
-  FireClip: {fileID: 8300000, guid: 8d6df1be07e039f4faf73269ed8905b4, type: 3}
-  GunType: Laser2
-  Cooldown: .300000012
---- !u!114 &960598595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 960598585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Radius: 20
-  Strength: 2
-  StrengthCap: 2
-  PullSpecific: {fileID: 0}
 --- !u!1 &975710598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,6 +1456,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1337083217}
   - 114: {fileID: 1337083218}
+  - 114: {fileID: 1337083219}
   m_Layer: 9
   m_Name: HardpointLeft
   m_TagString: Untagged
@@ -1532,6 +1487,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+--- !u!114 &1337083219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1337083216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  PullSpecific: {fileID: 0}
 --- !u!1 &1391100545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,6 +1511,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1391100546}
   - 114: {fileID: 1391100547}
+  - 114: {fileID: 1391100548}
   m_Layer: 9
   m_Name: HardpointRight
   m_TagString: Untagged
@@ -1571,6 +1542,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 0
+--- !u!114 &1391100548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391100545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  PullSpecific: {fileID: 0}
 --- !u!1 &1467001166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,7 +1651,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1473353354}
   - 114: {fileID: 1473353353}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hardpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1704,7 +1690,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1536882169}
   - 95: {fileID: 1536882170}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: gun_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1747,7 +1733,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1679858251}
   - 114: {fileID: 1679858252}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MountPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2236,7 +2222,7 @@ GameObject:
   - 4: {fileID: 2062390358}
   - 33: {fileID: 2062390357}
   - 23: {fileID: 2062390356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube4_Cube4_auv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2256,7 +2242,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: f2f19fb531cf3f544b006aa8f141910b, type: 2}
+  - {fileID: 2100000, guid: ab5dbe75d1e692e4ca2cfb30488f1642, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

@@ -22,6 +22,8 @@ public class SceneManager : MonoBehaviour {
         HardpointController hardpointMount = hardpoint.GetComponent<HardpointController>();
 
         ShipController playerShip = player.GetComponent<ShipController>();
+        playerShip.PullAndAttach(hardpointMount, gunController, mountPoints[0]);
+
         //playerShip.Attach(hardpointMount, gunController, mountPoints[0]);
         //playerShip.DiscoverConnected();
 	}

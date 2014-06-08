@@ -2,25 +2,29 @@ using UnityEngine;
 using System;
 
 public class PullObjectsController : MonoBehaviour {
-
     public float Radius = 10.0f;
     public float Strength = 1.0f;
-    public float StrengthCap = 2.0f;
+    public bool Enabled = true;
+    public bool EnableGeneralPull = false;
 
     public PullableController PullSpecific = null;
 
     void Update () {
+        if (!Enabled)
+        {
+            return;
+        }
         if (PullSpecific != null)
         {
             Pull(PullSpecific);
         }
-        else
+        else if (EnableGeneralPull)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, Radius);
             foreach (Collider collider in hitColliders)
             {
                 PullableController pullable = collider.transform.GetComponent<PullableController>();
-                if (pullable == null)
+                if (pullable == null || pullable.CapturedBy != null)
                 {
                     continue;
                 }

@@ -36,17 +36,28 @@ public class AttachmentController : MonoBehaviour {
     public Dictionary<HardpointController.Type, List<HardpointController>> Hardpoints = new Dictionary<HardpointController.Type, List<HardpointController>>();
 
     public List<PullTogether> PullingTogether = new List<PullTogether>();
+    public float PullRadius = 10.0f;
 
     void Start () {
         DiscoverHardpoints();
     }
 
     void Update () {
-        Debug.Log("Togeth? " + PullingTogether.Count);
-        foreach (PullTogether pulling in PullingTogether)
+        AttachmentUpdate();
+    }
+
+    protected virtual void AttachmentUpdate () 
+    {
+        for (int i = PullingTogether.Count - 1; i >= 0; i--)
         {
+            PullTogether pulling = PullingTogether[i];
             Vector3 toPoints = pulling.AttachmentPoint.transform.position - pulling.Point.transform.position; 
-            Debug.Log("Distance: " + toPoints.magnitude);
+            if (toPoints.magnitude < 0.1f)
+            {
+                Attach(pulling.Point, pulling.Attachment, pulling.AttachmentPoint);
+                PullingTogether.RemoveAt(i);
+                DiscoverConnected();
+            }
         }
     }
 
@@ -109,6 +120,8 @@ public class AttachmentController : MonoBehaviour {
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
         attachment.transform.Translate(translate, Space.World);
 
+        point.Attached = attachment;
+        attachmentPoint.Attached = this;
         joint.connectedBody = attachment.rigidbody;
     }
 
@@ -162,6 +175,86 @@ public class AttachmentController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public virtual IList<AttachmentController> DiscoverNearbyAttachable()
+    {
+        List<AttachmentController> nearby = new List<AttachmentController>();
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, PullRadius);
+        foreach (Collider collider in hitColliders)
+        {
+            PullableController pullable = collider.transform.GetComponent<PullableController>();
+            if (pullable == null || pullable.CapturedBy != null)
+            {
+                continue;
+            }
+            
+            AttachmentController attachment = collider.transform.GetComponent<AttachmentController>();
+            if (attachment == null)
+            {
+                continue;
+            }
+
+            HardpointController mounting = attachment.GetMountingPoint(this);
+            if (mounting == null)
+            {
+                continue;
+            }
+
+            if (mounting.Attached != null)
+            {
+                continue;
+            }
+
+            nearby.Add(attachment);
+        }
+        return nearby;
+    }
+
+    public virtual HardpointController GetAvailablePoint(AttachmentController forAttachment)
+    {
+        if (Hardpoints.ContainsKey(HardpointController.Type.LASER))
+        {
+            List<HardpointController> list = Hardpoints[HardpointController.Type.LASER];
+            if (list != null)
+            {
+                foreach (HardpointController hardpoint in list)
+                {
+                    AttachmentController hardpointAttachment = hardpoint.GetComponent<AttachmentController>();
+                    if (hardpointAttachment == null)
+                    {
+                        continue;
+                    }
+
+                    PullObjectsController puller = hardpoint.GetComponent<PullObjectsController>();
+                    if (puller != null && puller.PullSpecific != null)
+                    {
+                        continue;
+                    }
+
+                    if (hardpoint.Attached != null)
+                    {
+                        continue;
+                    }
+
+                    return hardpoint;
+                }
+            }
+        }
+        return null;
+    }
+
+    public virtual HardpointController GetMountingPoint(AttachmentController forAttachment)
+    {
+        if (Hardpoints.ContainsKey(HardpointController.Type.MOUNTING))
+        {
+            List<HardpointController> list = Hardpoints[HardpointController.Type.MOUNTING];
+            if (list != null && list.Count > 0)
+            {
+                return list[0];
+            }
+        }
+        return null;
     }
 
     // Called when new attachments are found, returning false will prevent the 

@@ -46,7 +46,7 @@ public class ShipController : AttachmentController {
         {
             foreach (AttachmentController gun in AttachmentGroups[CurrentGunGroup])
             {
-                object result = gun.CallAttachInterface("Fire");
+                gun.CallAttachInterface("Fire");
             }
         }
     }

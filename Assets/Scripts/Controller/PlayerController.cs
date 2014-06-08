@@ -7,7 +7,27 @@ public class PlayerController : ShipController {
          
     }
 	void Update () {
-   //     base.Update();
+        AttachmentUpdate();
+
+        IList<AttachmentController> nearby = DiscoverNearbyAttachable();
+        if (nearby.Count > 0)
+        {
+            foreach (AttachmentController attachment in nearby)
+            {
+                HardpointController hardpoint = GetAvailablePoint(attachment);
+                if (hardpoint == null)
+                {
+                    continue;
+                }
+                HardpointController mounting = attachment.GetMountingPoint(this);
+                if (mounting == null)
+                {
+                    continue;
+                }
+
+                PullAndAttach(hardpoint, attachment, mounting);
+            }
+        }
 
         if (!Screen.lockCursor)
         {

@@ -9,6 +9,8 @@ public class HardpointController : MonoBehaviour {
     }
     public Type HardpointType = Type.LASER;
 
+    public AttachmentController Attached = null;
+
     // Use this for initialization
     void Start () {
     }

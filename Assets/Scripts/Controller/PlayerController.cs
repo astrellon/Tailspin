@@ -3,27 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : ShipController {
-    void Start () {
-         
+    void Start () 
+    {
+        AttachmentStart();
     }
-	void Update () {
+	void Update () 
+    {
         AttachmentUpdate();
 
         IList<AttachmentController> nearby = DiscoverNearbyAttachable();
         if (nearby.Count > 0)
         {
+            Debug.Log("Nearby: " + nearby.Count);
             foreach (AttachmentController attachment in nearby)
             {
                 HardpointController hardpoint = GetAvailablePoint(attachment);
+                Debug.Log("Found hardpoint? " + (hardpoint != null));
                 if (hardpoint == null)
                 {
                     continue;
                 }
+                Debug.Log("Attachment point: " + hardpoint.name);
+
                 HardpointController mounting = attachment.GetMountingPoint(this);
                 if (mounting == null)
                 {
                     continue;
                 }
+                Debug.Log("Mounting point: " + mounting.name);
 
                 PullAndAttach(hardpoint, attachment, mounting);
             }

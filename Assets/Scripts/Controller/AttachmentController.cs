@@ -38,13 +38,20 @@ public class AttachmentController : MonoBehaviour {
     public List<PullTogether> PullingTogether = new List<PullTogether>();
     public float PullRadius = 10.0f;
 
-    void Start () {
+    void Start ()
+    {
+        AttachmentStart();
+    }
+    void Update () 
+    {
+        AttachmentUpdate();
+    }
+
+    protected void AttachmentStart()
+    {
         DiscoverHardpoints();
     }
 
-    void Update () {
-        AttachmentUpdate();
-    }
 
     protected virtual void AttachmentUpdate () 
     {
@@ -220,11 +227,13 @@ public class AttachmentController : MonoBehaviour {
             {
                 foreach (HardpointController hardpoint in list)
                 {
+                    /*
                     AttachmentController hardpointAttachment = hardpoint.GetComponent<AttachmentController>();
                     if (hardpointAttachment == null)
                     {
                         continue;
                     }
+                    */
 
                     PullObjectsController puller = hardpoint.GetComponent<PullObjectsController>();
                     if (puller != null && puller.PullSpecific != null)

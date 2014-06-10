@@ -33,7 +33,10 @@ public class AttachmentController : MonoBehaviour {
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
-    public Dictionary<HardpointController.Type, List<HardpointController>> Hardpoints = new Dictionary<HardpointController.Type, List<HardpointController>>();
+    //public Dictionary<HardpointController.Type, List<HardpointController>> Hardpoints = new Dictionary<HardpointController.Type, List<HardpointController>>();
+    //public List<HardpointController> Hardpoints = new List<HardpointController>();
+    public HardpointController[] Hardpoints = new HardpointController[0];
+    public List<HardpointController> MountingHardpoints = new List<HardpointController>();
 
     public List<PullTogether> PullingTogether = new List<PullTogether>();
     public float PullRadius = 10.0f;
@@ -101,7 +104,7 @@ public class AttachmentController : MonoBehaviour {
         PullObjectsController puller = point.GetComponent<PullObjectsController>();
         if (puller == null)
         {
-            Debug.Log("Cannot pull and attach as there is no puller on the point.");
+            //Debug.Log("Cannot pull and attach as there is no puller on the point.");
             Attach(point, attachment, attachmentPoint);
             return;
         }
@@ -117,7 +120,7 @@ public class AttachmentController : MonoBehaviour {
         // Move into position then attach.
         if (attachment.rigidbody == null)
         {
-            Debug.Log("Cannot attach if it does not have a ridig body!");
+            //Debug.Log("Cannot attach if it does not have a ridig body!");
             return;
         }
 
@@ -130,22 +133,25 @@ public class AttachmentController : MonoBehaviour {
         point.Attached = attachment;
         attachmentPoint.Attached = this;
         joint.connectedBody = attachment.rigidbody;
+        attachment.ParentAttachment = this;
     }
 
     public virtual void DiscoverHardpoints()
     {
-        Hardpoints.Clear();
+        Hardpoints = GetComponentsInChildren<HardpointController>();
 
-        HardpointController []points = GetComponentsInChildren<HardpointController>();
-        foreach (HardpointController point in points)
+        MountingHardpoints.Clear();
+        foreach (HardpointController hardpoint in Hardpoints)
         {
-            HardpointController.Type type = point.HardpointType;
-            if (!Hardpoints.ContainsKey(type))
+            if (hardpoint.MountingOrder > 0)
             {
-                Hardpoints[type] = new List<HardpointController>();
+                MountingHardpoints.Add(hardpoint);
             }
-            Hardpoints[type].Add(point);
         }
+
+        HardpointController.MountingComparer compare = new HardpointController.MountingComparer();
+        MountingHardpoints.Sort(compare);
+        //MountingHardpoints = MountingHardpoints.OrderBy(h=>h.MountingOrder).ToList();
     }
 
     public virtual void DiscoverConnected(bool clearCurrent = false)
@@ -193,23 +199,27 @@ public class AttachmentController : MonoBehaviour {
             PullableController pullable = collider.transform.GetComponent<PullableController>();
             if (pullable == null || pullable.CapturedBy != null)
             {
+                //Debug.Log("Collider " + collider.name + " is not pullable");
                 continue;
             }
             
             AttachmentController attachment = collider.transform.GetComponent<AttachmentController>();
             if (attachment == null)
             {
+                //Debug.Log("Collider " + collider.name + " has no attachment");
                 continue;
             }
 
-            HardpointController mounting = attachment.GetMountingPoint(this);
+            HardpointController mounting = attachment.FindMountingHardpoint();
             if (mounting == null)
             {
+                //Debug.Log("Attachment " + collider.name + " has not mounting point");
                 continue;
             }
 
             if (mounting.Attached != null)
             {
+                //Debug.Log("Attachment " + collider.name + " already mounted");
                 continue;
             }
 
@@ -220,6 +230,7 @@ public class AttachmentController : MonoBehaviour {
 
     public virtual HardpointController GetAvailablePoint(AttachmentController forAttachment)
     {
+        /*
         if (Hardpoints.ContainsKey(HardpointController.Type.LASER))
         {
             List<HardpointController> list = Hardpoints[HardpointController.Type.LASER];
@@ -227,14 +238,6 @@ public class AttachmentController : MonoBehaviour {
             {
                 foreach (HardpointController hardpoint in list)
                 {
-                    /*
-                    AttachmentController hardpointAttachment = hardpoint.GetComponent<AttachmentController>();
-                    if (hardpointAttachment == null)
-                    {
-                        continue;
-                    }
-                    */
-
                     PullObjectsController puller = hardpoint.GetComponent<PullObjectsController>();
                     if (puller != null && puller.PullSpecific != null)
                     {
@@ -250,20 +253,43 @@ public class AttachmentController : MonoBehaviour {
                 }
             }
         }
+        */
         return null;
     }
 
-    public virtual HardpointController GetMountingPoint(AttachmentController forAttachment)
+    public virtual HardpointController FindMountingHardpoint(HardpointController.Type matches = HardpointController.Type.NONE, bool isAvailable = true)
     {
-        if (Hardpoints.ContainsKey(HardpointController.Type.MOUNTING))
+        foreach (HardpointController point in MountingHardpoints)
         {
-            List<HardpointController> list = Hardpoints[HardpointController.Type.MOUNTING];
-            if (list != null && list.Count > 0)
+            if (point.Matches(matches, isAvailable))
             {
-                return list[0];
+                return point; 
             }
         }
         return null;
+    }
+    public virtual HardpointController FindHardpointWithType(HardpointController.Type matches, bool isAvailable = true)
+    {
+        foreach (HardpointController point in Hardpoints)
+        {
+            if (point.Matches(matches, isAvailable))
+            {
+                return point;
+            }
+        }
+        return null;
+    }
+    public virtual IList<HardpointController> FindAllHardpointsWithType(HardpointController.Type matches)
+    {
+        List<HardpointController> result = new List<HardpointController>();
+        foreach (HardpointController point in Hardpoints)
+        {
+            if ((point.HardpointType & matches) == matches)
+            {
+                result.Add(point);
+            }
+        }
+        return result;
     }
 
     // Called when new attachments are found, returning false will prevent the 

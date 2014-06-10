@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : ShipController {
+    private int Counter = 0;
     void Start () 
     {
         AttachmentStart();
@@ -11,29 +12,30 @@ public class PlayerController : ShipController {
     {
         AttachmentUpdate();
 
-        IList<AttachmentController> nearby = DiscoverNearbyAttachable();
-        if (nearby.Count > 0)
+        Counter++;
+        if (Counter > 10)
         {
-            Debug.Log("Nearby: " + nearby.Count);
-            foreach (AttachmentController attachment in nearby)
+            IList<AttachmentController> nearby = DiscoverNearbyAttachable();
+            if (nearby.Count > 0)
             {
-                HardpointController hardpoint = GetAvailablePoint(attachment);
-                Debug.Log("Found hardpoint? " + (hardpoint != null));
-                if (hardpoint == null)
+                foreach (AttachmentController attachment in nearby)
                 {
-                    continue;
-                }
-                Debug.Log("Attachment point: " + hardpoint.name);
+                    HardpointController mounting = FindMountingHardpoint();
+                    if (mounting == null)
+                    {
+                        continue;
+                    }
 
-                HardpointController mounting = attachment.GetMountingPoint(this);
-                if (mounting == null)
-                {
-                    continue;
-                }
-                Debug.Log("Mounting point: " + mounting.name);
+                    HardpointController attachMounting = attachment.FindMountingHardpoint();
+                    if (attachMounting == null)
+                    {
+                        continue;
+                    }
 
-                PullAndAttach(hardpoint, attachment, mounting);
+                    PullAndAttach(mounting, attachment, attachMounting);
+                }
             }
+            Counter = 0;
         }
 
         if (!Screen.lockCursor)

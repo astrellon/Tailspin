@@ -12,6 +12,7 @@ public class SceneManager : MonoBehaviour {
 	
         Screen.lockCursor = true;
 
+        /*
         GameObject player = GameObject.Find("PlayerShip");
         GameObject gun = GameObject.Find("TestGun");
         GunController gunController = gun.GetComponent<GunController>();
@@ -22,6 +23,7 @@ public class SceneManager : MonoBehaviour {
         HardpointController hardpointMount = hardpoint.GetComponent<HardpointController>();
 
         ShipController playerShip = player.GetComponent<ShipController>();
+        */
         //playerShip.PullAndAttach(hardpointMount, gunController, mountPoints[0]);
 
         //playerShip.Attach(hardpointMount, gunController, mountPoints[0]);

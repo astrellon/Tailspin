@@ -19,17 +19,15 @@ public class GunController : AttachmentController {
         AttachInterface["Fire"] = FireGun;
 
         //DiscoverHardpoints();
+        AttachmentStart();
     }
     public object FireGun(params object[] arg)
     {
         //Fire(Hardpoints);
         Debug.Log("Do fire gun");
-        if (Hardpoints.ContainsKey(HardpointController.Type.LASER))
-        {
-            List<HardpointController> firePoints = Hardpoints[HardpointController.Type.LASER];
+        IList<HardpointController> firePoints = FindAllHardpointsWithType(HardpointController.Type.LASER);
             Debug.Log("Fire gun: " + firePoints.Count);
             Fire(firePoints);
-        }
         return true;
     }
     void Update () {

@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 51114864}
   - 114: {fileID: 51114865}
+  - 114: {fileID: 51114866}
   m_Layer: 9
   m_Name: HardpointLeft2
   m_TagString: Untagged
@@ -113,7 +114,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  MountingOrder: 3
   Attached: {fileID: 0}
+--- !u!114 &51114866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 51114863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  EnableGeneralPull: 0
+  PullSpecific: {fileID: 0}
 --- !u!1 &117868656
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +494,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 389649641}
   - 114: {fileID: 389649642}
+  - 114: {fileID: 389649643}
   m_Layer: 9
   m_Name: HardpointCenter
   m_TagString: Untagged
@@ -506,7 +525,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  MountingOrder: 5
   Attached: {fileID: 0}
+--- !u!114 &389649643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 389649640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  EnableGeneralPull: 0
+  PullSpecific: {fileID: 0}
 --- !u!1 &401775451
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +557,7 @@ GameObject:
   - 114: {fileID: 401775456}
   - 64: {fileID: 401775457}
   m_Layer: 10
-  m_Name: TestGun
+  m_Name: TestGun2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,6 +591,8 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: gun
   AttachmentGroup: laser1
+  Hardpoints: []
+  MountingHardpoints: []
   PullRadius: 10
   BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
   FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
@@ -994,7 +1032,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: ab5dbe75d1e692e4ca2cfb30488f1642, type: 2}
+  - {fileID: 2100000, guid: f2f19fb531cf3f544b006aa8f141910b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1097,7 +1135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HardpointType: 1
+  HardpointType: 2
+  MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &960598585
 GameObject:
@@ -1179,6 +1218,8 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: none
   AttachmentGroup: group
+  Hardpoints: []
+  MountingHardpoints: []
   PullRadius: 10
   CurrentGun: {fileID: 0}
   Guns:
@@ -1323,7 +1364,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975710598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.2550458e-08, y: .644151688, z: -1.43053401}
+  m_LocalPosition: {x: -9.25505148e-08, y: -.402838707, z: -1.43053448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960598586}
@@ -1398,6 +1439,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1027508376}
   - 114: {fileID: 1027508377}
+  - 114: {fileID: 1027508378}
   m_Layer: 9
   m_Name: HardpointRight2
   m_TagString: Untagged
@@ -1428,7 +1470,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  MountingOrder: 4
   Attached: {fileID: 0}
+--- !u!114 &1027508378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027508375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  EnableGeneralPull: 0
+  PullSpecific: {fileID: 0}
 --- !u!1 &1034143187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,6 +1741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!114 &1337083219
 MonoBehaviour:
@@ -1739,6 +1799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  MountingOrder: 2
   Attached: {fileID: 0}
 --- !u!114 &1391100548
 MonoBehaviour:
@@ -1868,7 +1929,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HardpointType: 1
+  HardpointType: 2
+  MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!4 &1473353354
 Transform:
@@ -1962,7 +2024,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HardpointType: 0
+  HardpointType: 1
+  MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &1679858250
 GameObject:
@@ -2002,7 +2065,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HardpointType: 0
+  HardpointType: 1
+  MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &1746720908
 GameObject:
@@ -2242,6 +2306,8 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: gun
   AttachmentGroup: laser1
+  Hardpoints: []
+  MountingHardpoints: []
   PullRadius: 10
   BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
   FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
@@ -2528,6 +2594,8 @@ MonoBehaviour:
   ParentAttachment: {fileID: 0}
   AttachmentType: none
   AttachmentGroup: group
+  Hardpoints: []
+  MountingHardpoints: []
   PullRadius: 10
   CurrentGun: {fileID: 11400002, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
   Guns: []
@@ -2636,7 +2704,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: ab5dbe75d1e692e4ca2cfb30488f1642, type: 2}
+  - {fileID: 2100000, guid: f2f19fb531cf3f544b006aa8f141910b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0

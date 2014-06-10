@@ -8,6 +8,7 @@ public class GunController : AttachmentController {
     public AudioClip FireClip;
     public string GunType = "Laser";
 
+    public float BulletSpeed = 30.0f;
     public float Cooldown = 0.4f;
     private float NextFire = 0.0f;
 
@@ -44,8 +45,9 @@ public class GunController : AttachmentController {
         {
             foreach (HardpointController obj in list)
             {
-                GameObject newBullet = Instantiate(BulletPrefab, obj.transform.position, obj.transform.rotation) as GameObject;
-                newBullet.rigidbody.velocity = obj.transform.forward * 30;
+                Vector3 position = obj.transform.position + obj.transform.forward * 5.0f;
+                GameObject newBullet = Instantiate(BulletPrefab, position, obj.transform.rotation) as GameObject;
+                newBullet.rigidbody.velocity = obj.transform.forward * BulletSpeed;
                 if (collider != null)
                 {
                     Physics.IgnoreCollision(newBullet.collider, collider);

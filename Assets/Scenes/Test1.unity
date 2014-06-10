@@ -597,6 +597,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
   FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
   GunType: Laser
+  BulletSpeed: 30
   Cooldown: .400000006
 --- !u!54 &401775454
 Rigidbody:
@@ -1364,7 +1365,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975710598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.25505148e-08, y: -.402838707, z: -1.43053448}
+  m_LocalPosition: {x: 1.79148281e-14, y: .663684487, z: -1.26064408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960598586}
@@ -2312,6 +2313,7 @@ MonoBehaviour:
   BulletPrefab: {fileID: 100000, guid: adee7311d7a2faf4da6ef50ea3e49a43, type: 2}
   FireClip: {fileID: 8300000, guid: f37142f976488ca4aa1cd2caba15d55c, type: 3}
   GunType: Laser
+  BulletSpeed: 30
   Cooldown: .400000006
 --- !u!4 &1781558394
 Transform:

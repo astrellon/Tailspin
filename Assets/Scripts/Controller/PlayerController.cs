@@ -10,8 +10,6 @@ public class PlayerController : ShipController {
     }
 	void Update () 
     {
-        AttachmentUpdate();
-
         Counter++;
         if (Counter > 10)
         {
@@ -89,6 +87,8 @@ public class PlayerController : ShipController {
             FireGun();
         }
 
+        // TODO!
+        // Figure out why clicking the mouse somehow results in a rotation.
         float xspeed = Input.GetAxis("Mouse X");
         float yspeed = Input.GetAxis("Mouse Y") * 1.0f;
         Rotate(yspeed, xspeed, 0);

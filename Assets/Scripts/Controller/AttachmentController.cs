@@ -45,7 +45,7 @@ public class AttachmentController : MonoBehaviour {
     {
         AttachmentStart();
     }
-    void Update () 
+    void LateUpdate () 
     {
         AttachmentUpdate();
     }
@@ -58,6 +58,7 @@ public class AttachmentController : MonoBehaviour {
 
     protected virtual void AttachmentUpdate () 
     {
+        bool updateConnected = false;
         for (int i = PullingTogether.Count - 1; i >= 0; i--)
         {
             PullTogether pulling = PullingTogether[i];
@@ -66,8 +67,12 @@ public class AttachmentController : MonoBehaviour {
             {
                 Attach(pulling.Point, pulling.Attachment, pulling.AttachmentPoint);
                 PullingTogether.RemoveAt(i);
-                DiscoverConnected();
+                updateConnected = true;
             }
+        }
+        if (updateConnected)
+        {
+            DiscoverConnected();
         }
     }
 

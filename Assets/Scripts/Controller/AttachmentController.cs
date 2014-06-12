@@ -133,19 +133,7 @@ public class AttachmentController : MonoBehaviour {
             return;
         }
 
-        //Quaternion rotate = CalcAttach(point.transform, attachmentPoint.transform);
-        //attachment.transform.rotation = rotate * attachment.transform.rotation;
         RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
-
-        /*
-        Quaternion rotateForward = Quaternion.FromToRotation(
-                attachmentPoint.transform.forward, point.transform.forward);
-        attachment.transform.rotation = rotateForward * attachment.transform.rotation;
-
-        Quaternion rotateUp = Quaternion.FromToRotation(
-                point.transform.up * -1, attachmentPoint.transform.up);
-        attachment.transform.rotation = rotateUp * attachment.transform.rotation;
-        */
 
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
         attachment.transform.Translate(translate, Space.World);

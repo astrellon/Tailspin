@@ -24,11 +24,8 @@ public class GunController : AttachmentController {
     }
     public object FireGun(params object[] arg)
     {
-        //Fire(Hardpoints);
-        Debug.Log("Do fire gun");
         IList<HardpointController> firePoints = FindAllHardpointsWithType(HardpointController.Type.LASER);
-            Debug.Log("Fire gun: " + firePoints.Count);
-            Fire(firePoints);
+        Fire(firePoints);
         return true;
     }
     void Update () {
@@ -45,7 +42,7 @@ public class GunController : AttachmentController {
         {
             foreach (HardpointController obj in list)
             {
-                Vector3 position = obj.transform.position + obj.transform.forward * 5.0f;
+                Vector3 position = obj.transform.position + obj.transform.forward * 1.0f;
                 GameObject newBullet = Instantiate(BulletPrefab, position, obj.transform.rotation) as GameObject;
                 newBullet.rigidbody.velocity = obj.transform.forward * BulletSpeed;
                 if (collider != null)

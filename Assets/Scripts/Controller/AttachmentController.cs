@@ -33,12 +33,10 @@ public class AttachmentController : MonoBehaviour {
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
-    //public Dictionary<HardpointController.Type, List<HardpointController>> Hardpoints = new Dictionary<HardpointController.Type, List<HardpointController>>();
-    //public List<HardpointController> Hardpoints = new List<HardpointController>();
-    public HardpointController[] Hardpoints = new HardpointController[0];
-    public List<HardpointController> MountingHardpoints = new List<HardpointController>();
+    protected HardpointController[] Hardpoints = new HardpointController[0];
+    protected List<HardpointController> MountingHardpoints = new List<HardpointController>();
 
-    public List<PullTogether> PullingTogether = new List<PullTogether>();
+    protected List<PullTogether> PullingTogether = new List<PullTogether>();
     public float PullRadius = 10.0f;
 
     void Start ()
@@ -63,8 +61,13 @@ public class AttachmentController : MonoBehaviour {
         {
             PullTogether pulling = PullingTogether[i];
             Vector3 toPoints = pulling.AttachmentPoint.transform.position - pulling.Point.transform.position; 
-            if (toPoints.magnitude < 0.1f)
+            if (toPoints.magnitude < 1f)
             {
+                PullObjectsController puller = pulling.Point.GetComponent<PullObjectsController>();
+                if (puller != null)
+                {
+                    puller.PullSpecific = null;
+                }
                 Attach(pulling.Point, pulling.Attachment, pulling.AttachmentPoint);
                 PullingTogether.RemoveAt(i);
                 updateConnected = true;
@@ -88,10 +91,10 @@ public class AttachmentController : MonoBehaviour {
     public Quaternion CalcAttach(Transform point, Transform attachment)
     {
         Quaternion rotateForward = Quaternion.FromToRotation(
-                point.forward, attachment.forward * -1);
+                attachment.forward, point.forward);
 
         Quaternion rotateUp = Quaternion.FromToRotation(
-                attachment.up* -1, point.up);
+                point.up * -1, attachment.up);
 
         return rotateUp * rotateForward;
     }
@@ -111,6 +114,7 @@ public class AttachmentController : MonoBehaviour {
         {
             //Debug.Log("Cannot pull and attach as there is no puller on the point.");
             Attach(point, attachment, attachmentPoint);
+            DiscoverConnected();
             return;
         }
         puller.PullSpecific = pullable;

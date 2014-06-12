@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class ShipController : AttachmentController {
 
-    //private Dictionary<HardpointController.Type, List<HardpointController>> Hardpoints = new Dictionary<HardpointController.Type, List<HardpointController>>();
     public GunController CurrentGun;
     public List<GunController> Guns;
     public GameObject ShipDeath;
@@ -15,18 +14,6 @@ public class ShipController : AttachmentController {
     public string CurrentGunGroup = null;
 	// Use this for initialization
 	void Start () {
-        /*
-        HardpointController[] hardpoints = GetComponentsInChildren<HardpointController>();
-        foreach (HardpointController controller in hardpoints)
-        {
-            HardpointController.Type type = controller.HardpointType;
-            if (!Hardpoints.ContainsKey(type))
-            {
-                Hardpoints[type] = new List<HardpointController>();
-            }
-            Hardpoints[type].Add(controller);
-        }
-        */
         DiscoverConnected();
 	}
 
@@ -37,6 +24,7 @@ public class ShipController : AttachmentController {
 
     public void FireGun()
     {
+        //Debug.Log("Gun group: " + CurrentGunGroup);
         if (CurrentGunGroup == null)
         {
             return;

@@ -88,17 +88,6 @@ public class AttachmentController : MonoBehaviour {
         return false;
     }
 
-    public Quaternion CalcAttach(Transform point, Transform attachment)
-    {
-        Quaternion rotateForward = Quaternion.FromToRotation(
-                attachment.forward, point.forward);
-
-        Quaternion rotateUp = Quaternion.FromToRotation(
-                point.up * -1, attachment.up);
-
-        return rotateUp * rotateForward;
-    }
-
     public virtual void PullAndAttach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
     {
         PullableController pullable = attachment.GetComponent<PullableController>();
@@ -123,6 +112,17 @@ public class AttachmentController : MonoBehaviour {
         PullingTogether.Add(new PullTogether(point, attachment, attachmentPoint));
     }
 
+    public virtual void RotateConnect(Transform point, Transform attachment, Transform attachmentPoint)
+    {
+        Quaternion rotateForward = Quaternion.FromToRotation(
+                attachmentPoint.forward, point.forward);
+        attachment.rotation = rotateForward * attachment.rotation;
+
+        Quaternion rotateUp = Quaternion.FromToRotation(
+                point.up * -1, attachmentPoint.up);
+        attachment.rotation = rotateUp * attachment.rotation;
+    }
+
     public virtual void Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
     {
         FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
@@ -133,8 +133,19 @@ public class AttachmentController : MonoBehaviour {
             return;
         }
 
-        Quaternion rotate = CalcAttach(point.transform, attachmentPoint.transform);
-        attachment.transform.rotation = rotate * attachment.transform.rotation;
+        //Quaternion rotate = CalcAttach(point.transform, attachmentPoint.transform);
+        //attachment.transform.rotation = rotate * attachment.transform.rotation;
+        RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
+
+        /*
+        Quaternion rotateForward = Quaternion.FromToRotation(
+                attachmentPoint.transform.forward, point.transform.forward);
+        attachment.transform.rotation = rotateForward * attachment.transform.rotation;
+
+        Quaternion rotateUp = Quaternion.FromToRotation(
+                point.transform.up * -1, attachmentPoint.transform.up);
+        attachment.transform.rotation = rotateUp * attachment.transform.rotation;
+        */
 
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
         attachment.transform.Translate(translate, Space.World);

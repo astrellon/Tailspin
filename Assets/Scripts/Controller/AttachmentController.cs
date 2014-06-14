@@ -30,6 +30,8 @@ public class AttachmentController : MonoBehaviour {
 
     public Dictionary<string, AttachFunction> AttachInterface = 
         new Dictionary<string, AttachFunction>();
+    public Dictionary<string, List<AttachmentController>> AttachmentTypes =
+        new Dictionary<string, List<AttachmentController>>();
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
@@ -86,6 +88,27 @@ public class AttachmentController : MonoBehaviour {
             return AttachInterface[funcName](args);
         }
         return false;
+    }
+
+    public void CallAttachmentInterfaceByType(string attachmentType, string funcName, params object[] args)
+    {
+
+
+    }
+    public void CallAttachmentInterfaceByGroup(string attachmentGroup, string funcName, params object[] args)
+    {
+        if (attachmentGroup == null || funcName == null)
+        {
+            return;
+        }
+
+        if (AttachmentGroups.ContainsKey(attachmentGroup))
+        {
+            foreach (AttachmentController attachment in AttachmentGroups[attachmentGroup])
+            {
+                attachment.CallAttachInterface(funcName, args);
+            }
+        }
     }
 
     public virtual void PullAndAttach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
@@ -168,6 +191,7 @@ public class AttachmentController : MonoBehaviour {
         {
             ConnectedAttachments.Clear();
             AttachmentGroups.Clear();
+            AttachmentTypes.Clear();
         }
 
         Joint[] connected = transform.GetComponentsInChildren<Joint>();
@@ -182,8 +206,10 @@ public class AttachmentController : MonoBehaviour {
                 {
                     AttachmentController attachment = attachments[j];
                     string group = attachment.AttachmentGroup;
+                    string type = attachment.AttachmentType;
                     bool newGroup = !AttachmentGroups.ContainsKey(group);
-                    if (!OnDiscoverNewAttachment(attachment, newGroup))
+                    bool newType = !AttachmentTypes.ContainsKey(type);
+                    if (!OnDiscoverNewAttachment(attachment, newType, newGroup))
                     {
                         continue;
                     }
@@ -192,7 +218,12 @@ public class AttachmentController : MonoBehaviour {
                     {
                         AttachmentGroups[group] = new List<AttachmentController>();
                     }
+                    if (newType)
+                    {
+                        AttachmentTypes[type] = new List<AttachmentController>();
+                    }
                     AttachmentGroups[group].Add(attachment);
+                    AttachmentTypes[type].Add(attachment);
                 }
             }
         }

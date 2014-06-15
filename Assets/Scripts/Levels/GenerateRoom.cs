@@ -8,7 +8,9 @@ public class GenerateRoom : MonoBehaviour {
     public int MaxNumberRooms = 5;
     protected System.Random rander = new System.Random();
     protected Queue<RoomConnection> AvailableConnections = new Queue<RoomConnection>();
-    protected int BuiltRooms = 0;
+    protected List<Room> BuiltRooms = new List<Room>();
+    protected List<Collider> BuiltColliders = new List<Collider>();
+    protected int BuildAttempts = 0;
 	// Use this for initialization
 	void Start () {
         Generate();
@@ -33,14 +35,14 @@ public class GenerateRoom : MonoBehaviour {
     }
     protected void ProcessConnections()
     {
-        while (AvailableConnections.Count > 0 && BuiltRooms < MaxNumberRooms)
+        while (AvailableConnections.Count > 0 && BuiltRooms.Count < MaxNumberRooms && BuildAttempts < 200)
         {
+            BuildAttempts++;
             // Connection from the available connections.
             RoomConnection sourceConnection = AvailableConnections.Dequeue();
             Room newRoom = CreateRoom();
             // Connection from the room to use
             RoomConnection destConnection = PickConnection(newRoom);
-            sourceConnection.OtherRoomConnection = destConnection;
 
             // Create a rotation Quaternion that will perform the rotation
             // required to make the two normals align.
@@ -57,6 +59,23 @@ public class GenerateRoom : MonoBehaviour {
             Vector3 translate = sourceConnection.transform.position - destConnection.transform.position;
             newRoom.transform.Translate(translate, Space.World);
 
+            if (RoomCollides(newRoom))
+            {
+                AvailableConnections.Enqueue(sourceConnection);
+                Destroy(newRoom.gameObject);
+                continue;
+            }
+            sourceConnection.OtherRoomConnection = destConnection;
+            BuiltRooms.Add(newRoom);
+            if (newRoom.RoomCollider != null)
+            {
+                BuiltColliders.Add(newRoom.RoomCollider);
+            }
+            else if (newRoom.collider != null)
+            {
+                BuiltColliders.Add(newRoom.collider);
+            }
+
             // Add all connections from the new room into the queue of available
             // rooms except the connection that's about the conencted to.
             foreach (RoomConnection connection in newRoom.Connections)
@@ -70,10 +89,33 @@ public class GenerateRoom : MonoBehaviour {
         }
         Complete();
     }
+    protected bool RoomCollides(Room checkRoom)
+    {
+        Collider checkCollider = checkRoom.RoomCollider;
+        if (checkCollider == null)
+        {
+            checkCollider = checkRoom.collider;
+        }
+        if (checkCollider == null)
+        {
+            return false;
+        }
+
+        Bounds checkBounds = checkCollider.bounds;
+        foreach (Collider collida in BuiltColliders)
+        {
+            Bounds bounds = collida.bounds;
+            if (checkBounds.Intersects(bounds))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected Room CreateRoom()
     {
         Room room = PickRoom();
-        BuiltRooms++;
         Room newRoom = Instantiate(room, transform.position, Quaternion.identity) as Room;
         newRoom.GetConnections();
         newRoom.transform.parent = transform;

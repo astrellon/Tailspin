@@ -91,7 +91,7 @@ public class PlayerController : ShipController {
         // Figure out why clicking the mouse somehow results in a rotation.
         float xspeed = Input.GetAxis("Mouse X");
         float yspeed = Input.GetAxis("Mouse Y") * 1.0f;
-        Debug.Log("Speeds: " + xspeed + " | " + yspeed);
+        //Debug.Log("Speeds: " + xspeed + " | " + yspeed);
         Rotate(yspeed, xspeed, 0);
 	}
 }

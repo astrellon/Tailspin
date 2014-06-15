@@ -235,6 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Connections: []
+  PostCreation: 0
+  RoomCollider: {fileID: 6400000}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

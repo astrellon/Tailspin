@@ -333,7 +333,7 @@ public class AttachmentController : MonoBehaviour {
 
     // Called when new attachments are found, returning false will prevent the 
     // attachment from being attached.
-    protected virtual bool OnDiscoverNewAttachment(AttachmentController obj, bool isNewGroup)
+    protected virtual bool OnDiscoverNewAttachment(AttachmentController obj, bool isNewType, bool isNewGroup)
     {
         return true;
     }

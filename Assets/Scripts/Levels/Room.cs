@@ -7,6 +7,8 @@ public class Room : MonoBehaviour {
 
     public RoomConnection[] Connections = null;
     private bool CreatedConnections = false;
+    public Collider RoomCollider = null;
+
 	// Use this for initialization
 	void Start () {
         GetConnections();

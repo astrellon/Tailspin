@@ -264,7 +264,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
-  m_Convex: 1
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 58a3b38c3750e9145bc95482ea8f7c4a, type: 3}
 --- !u!108 &10800000
 Light:

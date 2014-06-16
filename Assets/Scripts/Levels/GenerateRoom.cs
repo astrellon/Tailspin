@@ -54,11 +54,11 @@ public class GenerateRoom : MonoBehaviour {
             newRoom.transform.rotation = rotate * newRoom.transform.rotation;
 
             rotate = Quaternion.FromToRotation(
-                sourceConnection.transform.up* -1, destConnection.transform.up);
+                sourceConnection.transform.up * -1, destConnection.transform.up);
             newRoom.transform.rotation = rotate * newRoom.transform.rotation;
             Vector3 translate = sourceConnection.transform.position - destConnection.transform.position;
             newRoom.transform.Translate(translate, Space.World);
-
+        
             if (RoomCollides(newRoom))
             {
                 AvailableConnections.Enqueue(sourceConnection);
@@ -102,11 +102,14 @@ public class GenerateRoom : MonoBehaviour {
         }
 
         Bounds checkBounds = checkCollider.bounds;
+        checkBounds.Expand(-0.2f);
+        //Debug.Log("Checking bounds: " + checkRoom.name + " | " + checkBounds);
         foreach (Collider collida in BuiltColliders)
         {
             Bounds bounds = collida.bounds;
             if (checkBounds.Intersects(bounds))
             {
+                Debug.Log(checkRoom.name + " intersects with " + collida.name);
                 return true;
             }
         }
@@ -119,6 +122,7 @@ public class GenerateRoom : MonoBehaviour {
         Room newRoom = Instantiate(room, transform.position, Quaternion.identity) as Room;
         newRoom.GetConnections();
         newRoom.transform.parent = transform;
+        newRoom.name += "_" + BuildAttempts;
         return newRoom;
     }
     protected RoomConnection PickConnection(Room room)

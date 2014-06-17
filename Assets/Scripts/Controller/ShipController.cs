@@ -16,10 +16,46 @@ public class ShipController : AttachmentController {
 	void Start () {
         DiscoverConnected();
 	}
+    
+    private int Counter = 0;
 
     public override void DiscoverConnected(bool clearCurrent = false)
     {
         base.DiscoverConnected(clearCurrent);
+    }
+
+    void Update()
+    {
+        ShipUpdate();
+    }
+
+    protected void ShipUpdate()
+    {
+        Counter++;
+        if (Counter > 10)
+        {
+            IList<AttachmentController> nearby = DiscoverNearbyAttachable();
+            if (nearby.Count > 0)
+            {
+                foreach (AttachmentController attachment in nearby)
+                {
+                    HardpointController mounting = FindMountingHardpoint();
+                    if (mounting == null)
+                    {
+                        continue;
+                    }
+
+                    HardpointController attachMounting = attachment.FindMountingHardpoint();
+                    if (attachMounting == null)
+                    {
+                        continue;
+                    }
+
+                    PullAndAttach(mounting, attachment, attachMounting);
+                }
+            }
+            Counter = 0;
+        }
     }
 
     public void FireGun()

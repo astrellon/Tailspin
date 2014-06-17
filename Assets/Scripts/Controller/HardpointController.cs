@@ -15,6 +15,8 @@ public class HardpointController : MonoBehaviour {
     [BitMask(typeof(Type))]
     public Type HardpointType = Type.LASER;
 
+    public bool Enabled = true;
+
     // Any value greater than 0 indicates priority.
     public int MountingOrder = 0;
 

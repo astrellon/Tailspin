@@ -3,38 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerController : ShipController {
-    private int Counter = 0;
     void Start () 
     {
         AttachmentStart();
     }
 	void Update () 
     {
-        Counter++;
-        if (Counter > 10)
-        {
-            IList<AttachmentController> nearby = DiscoverNearbyAttachable();
-            if (nearby.Count > 0)
-            {
-                foreach (AttachmentController attachment in nearby)
-                {
-                    HardpointController mounting = FindMountingHardpoint();
-                    if (mounting == null)
-                    {
-                        continue;
-                    }
-
-                    HardpointController attachMounting = attachment.FindMountingHardpoint();
-                    if (attachMounting == null)
-                    {
-                        continue;
-                    }
-
-                    PullAndAttach(mounting, attachment, attachMounting);
-                }
-            }
-            Counter = 0;
-        }
+        ShipUpdate();
 
         if (!Screen.lockCursor)
         {

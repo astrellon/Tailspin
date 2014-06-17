@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1001 &17007735
@@ -309,6 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 3
   Attached: {fileID: 0}
 --- !u!114 &51114866
@@ -755,7 +757,7 @@ GameObject:
   - 4: {fileID: 387671640}
   - 114: {fileID: 387671641}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ShipGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,6 +773,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 574795574}
   - {fileID: 267141569}
   m_Father: {fileID: 0}
 --- !u!114 &387671641
@@ -825,6 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 0
   MountingOrder: 10
   Attached: {fileID: 0}
 --- !u!114 &389649643
@@ -1441,8 +1445,59 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 0
   MountingOrder: 6
   Attached: {fileID: 0}
+--- !u!1 &574795573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 574795574}
+  - 132: {fileID: 574795575}
+  m_Layer: 0
+  m_Name: Hardpoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &574795574
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574795573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0500000007, y: .949999988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 387671640}
+--- !u!132 &574795575
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574795573}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 'Hardpoints:'
+  m_Anchor: 0
+  m_Alignment: 0
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
 --- !u!1 &588827782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &833884251
@@ -1902,6 +1958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &960598585
@@ -2234,6 +2291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 4
   Attached: {fileID: 0}
 --- !u!114 &1027508378
@@ -2297,6 +2355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 0
   MountingOrder: 9
   Attached: {fileID: 0}
 --- !u!4 &1112744328
@@ -2338,6 +2397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!4 &1133627141
@@ -2407,6 +2467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 0
   MountingOrder: 7
   Attached: {fileID: 0}
 --- !u!1001 &1198496818
@@ -2539,6 +2600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1001 &1254438680
@@ -2648,6 +2710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &1327777257
@@ -2842,6 +2905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &1337083216
@@ -2884,6 +2948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!114 &1337083219
@@ -2930,6 +2995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!4 &1359380011
@@ -2983,6 +3049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 2
   Attached: {fileID: 0}
 --- !u!114 &1391100548
@@ -3029,6 +3096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!4 &1473353354
@@ -3081,6 +3149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &1508901100
@@ -3376,6 +3445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &1647640462
@@ -3628,6 +3698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &1679858250
@@ -3669,6 +3740,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &1728823920
@@ -3727,6 +3799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 0
   MountingOrder: 8
   Attached: {fileID: 0}
 --- !u!1 &1746720908
@@ -4015,6 +4088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!4 &1790191507
@@ -4201,6 +4275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 2
+  Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
 --- !u!1 &1924962905
@@ -4616,6 +4691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HardpointType: 1
+  Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
 --- !u!1 &2062390355

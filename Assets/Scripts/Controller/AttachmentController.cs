@@ -35,7 +35,7 @@ public class AttachmentController : MonoBehaviour {
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
-    protected HardpointController[] Hardpoints = new HardpointController[0];
+    public HardpointController[] Hardpoints {get; protected set;}
     protected List<HardpointController> MountingHardpoints = new List<HardpointController>();
 
     protected List<PullTogether> PullingTogether = new List<PullTogether>();
@@ -52,6 +52,7 @@ public class AttachmentController : MonoBehaviour {
 
     protected void AttachmentStart()
     {
+        Hardpoints = new HardpointController[0];
         DiscoverHardpoints();
     }
 
@@ -300,6 +301,10 @@ public class AttachmentController : MonoBehaviour {
     {
         foreach (HardpointController point in MountingHardpoints)
         {
+            if (!point.Enabled)
+            {
+                continue;
+            }
             if (point.Matches(matches, isAvailable))
             {
                 return point; 

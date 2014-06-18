@@ -164,6 +164,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1001 &17007735
 Prefab:
   m_ObjectHideFlags: 0
@@ -313,6 +314,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 3
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!114 &51114866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +833,7 @@ MonoBehaviour:
   Enabled: 0
   MountingOrder: 10
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!114 &389649643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,6 +1451,7 @@ MonoBehaviour:
   Enabled: 0
   MountingOrder: 6
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &574795573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,6 +1774,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &833884251
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,6 +1966,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &960598585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1987,7 +1993,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 960598585}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: 22.2278042, y: 0, z: 2.64464461e-06}
+  m_LocalPosition: {x: -4.41684484, y: 0, z: -5.60560238e-07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1337083217}
@@ -2046,11 +2052,7 @@ MonoBehaviour:
   AttachmentType: none
   AttachmentGroup: group
   PullRadius: 10
-  CurrentGun: {fileID: 0}
-  Guns:
-  - {fileID: 0}
-  - {fileID: 0}
-  ShipDeath: {fileID: 0}
+  ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
   FlightSpeed: 10000
   RotateTorque: 1000
   Hull: 10
@@ -2189,7 +2191,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975710598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.79148281e-14, y: .663684487, z: -1.26064408}
+  m_LocalPosition: {x: 1.79148315e-14, y: -.337499022, z: -1.26064432}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960598586}
@@ -2294,6 +2296,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 4
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!114 &1027508378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2358,6 +2361,7 @@ MonoBehaviour:
   Enabled: 0
   MountingOrder: 9
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!4 &1112744328
 Transform:
   m_ObjectHideFlags: 0
@@ -2369,6 +2373,66 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960598586}
+--- !u!1 &1114389780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1114389783}
+  - 114: {fileID: 1114389782}
+  - 114: {fileID: 1114389781}
+  m_Layer: 9
+  m_Name: HardpointRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1114389781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114389780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  EnableGeneralPull: 0
+  PullSpecific: {fileID: 0}
+--- !u!114 &1114389782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114389780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HardpointType: 1
+  Enabled: 1
+  MountingOrder: 2
+  Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
+--- !u!4 &1114389783
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1114389780}
+  m_LocalRotation: {x: 0, y: 0, z: .998134792, w: .0610485077}
+  m_LocalPosition: {x: .45101881, y: -.0711500496, z: .366574287}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1924962914}
 --- !u!1 &1133627139
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,6 +2464,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!4 &1133627141
 Transform:
   m_ObjectHideFlags: 0
@@ -2470,6 +2535,67 @@ MonoBehaviour:
   Enabled: 0
   MountingOrder: 7
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
+--- !u!1 &1145235501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1145235502}
+  - 114: {fileID: 1145235504}
+  - 114: {fileID: 1145235503}
+  m_Layer: 9
+  m_Name: HardpointLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1145235502
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1145235501}
+  m_LocalRotation: {x: 0, y: 0, z: .998134792, w: -.0610484742}
+  m_LocalPosition: {x: -.450466901, y: -.0742765293, z: .366574377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1924962914}
+--- !u!114 &1145235503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1145235501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71917367188f3994c9028c7782138334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 20
+  Strength: 2
+  Enabled: 1
+  EnableGeneralPull: 0
+  PullSpecific: {fileID: 0}
+--- !u!114 &1145235504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1145235501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b979c93961666384082dcb0fd7deeb75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HardpointType: 1
+  Enabled: 1
+  MountingOrder: 1
+  Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1001 &1198496818
 Prefab:
   m_ObjectHideFlags: 0
@@ -2603,6 +2729,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1001 &1254438680
 Prefab:
   m_ObjectHideFlags: 0
@@ -2616,11 +2743,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.34777069
+      value: 1.65669477
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 6.16567183
+      value: 3.02863455
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2661,6 +2788,30 @@ Prefab:
     - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
       propertyPath: Hull
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: m_AngularDrag
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: FlightSpeed
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: RotateTorque
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: CurrentGun
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: CurrentGunGroup
+      value: laser1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
@@ -2713,6 +2864,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1327777257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2908,6 +3060,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1337083216
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,6 +3104,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!114 &1337083219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2998,6 +3152,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!4 &1359380011
 Transform:
   m_ObjectHideFlags: 0
@@ -3052,6 +3207,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 2
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!114 &1391100548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3099,6 +3255,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!4 &1473353354
 Transform:
   m_ObjectHideFlags: 0
@@ -3152,6 +3309,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1508901100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3448,6 +3606,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1647640462
 GameObject:
   m_ObjectHideFlags: 0
@@ -3701,6 +3860,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1679858250
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,6 +3903,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1728823920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,6 +3963,7 @@ MonoBehaviour:
   Enabled: 0
   MountingOrder: 8
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1746720908
 GameObject:
   m_ObjectHideFlags: 0
@@ -4091,6 +4253,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!4 &1790191507
 Transform:
   m_ObjectHideFlags: 0
@@ -4278,6 +4441,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 0
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &1924962905
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,13 +4538,11 @@ MonoBehaviour:
   AttachmentType: none
   AttachmentGroup: group
   PullRadius: 10
-  CurrentGun: {fileID: 11400002, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
-  Guns: []
   ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
-  FlightSpeed: 15
-  RotateTorque: 1
+  FlightSpeed: 10000
+  RotateTorque: 1000
   Hull: 3
-  CurrentGunGroup: 
+  CurrentGunGroup: laser1
 --- !u!54 &1924962910
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4389,9 +4551,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 1254438680}
   m_GameObject: {fileID: 1924962905}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 500
   m_Drag: 2
-  m_AngularDrag: 2
+  m_AngularDrag: 3
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -4446,9 +4608,11 @@ Transform:
   m_PrefabInternal: {fileID: 1254438680}
   m_GameObject: {fileID: 1924962905}
   m_LocalRotation: {x: 0, y: -.707106829, z: 0, w: .707106829}
-  m_LocalPosition: {x: -16.8406105, y: 3.34777069, z: 6.16567183}
+  m_LocalPosition: {x: -16.8406105, y: 1.65669477, z: 3.02863455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1145235502}
+  - {fileID: 1114389783}
   - {fileID: 307015747}
   m_Father: {fileID: 0}
 --- !u!1001 &1927992765
@@ -4694,6 +4858,7 @@ MonoBehaviour:
   Enabled: 1
   MountingOrder: 1
   Attached: {fileID: 0}
+  AttachedPoint: {fileID: 0}
 --- !u!1 &2062390355
 GameObject:
   m_ObjectHideFlags: 0

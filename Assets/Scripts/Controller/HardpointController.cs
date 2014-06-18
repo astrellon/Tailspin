@@ -19,8 +19,8 @@ public class HardpointController : MonoBehaviour {
 
     // Any value greater than 0 indicates priority.
     public int MountingOrder = 0;
-
     public AttachmentController Attached = null;
+    public HardpointController AttachedPoint = null;
 
     public bool Matches(Type matches, bool isAvailable = true)
     {
@@ -41,6 +41,21 @@ public class HardpointController : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    public void Detach()
+    {
+        if (Attached != null)
+        {
+            Attached.ParentAttachment = null;
+            Attached = null;
+        }
+        if (AttachedPoint != null)
+        {
+            AttachedPoint.Attached = null;
+            AttachedPoint.AttachedPoint = null;
+            AttachedPoint = null;
+        }
     }
 
     // Use this for initialization

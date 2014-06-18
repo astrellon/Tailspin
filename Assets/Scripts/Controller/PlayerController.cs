@@ -50,11 +50,20 @@ public class PlayerController : ShipController {
         }
         if (Input.GetKey (KeyCode.Alpha1))
         {
-            ChangeGun(Guns[0]);
+            CurrentGunGroup = "laser1";
         }
         if (Input.GetKey (KeyCode.Alpha2))
         {
-            ChangeGun(Guns[1]);
+            CurrentGunGroup = "laser2";
+        }
+
+        if (Input.GetKey (KeyCode.G))
+        {
+            foreach (HardpointController hardpoint in Hardpoints)
+            {
+                Detach(hardpoint, true);
+            }
+            DiscoverConnected(true);
         }
 
         if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) 
@@ -64,9 +73,9 @@ public class PlayerController : ShipController {
 
         // TODO!
         // Figure out why clicking the mouse somehow results in a rotation.
+        // Hopefully it is a Unity in Wine issue rather than a real one.
         float xspeed = Input.GetAxis("Mouse X");
         float yspeed = Input.GetAxis("Mouse Y") * 1.0f;
-        //Debug.Log("Speeds: " + xspeed + " | " + yspeed);
         Rotate(yspeed, xspeed, 0);
 	}
 }

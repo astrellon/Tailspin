@@ -8,7 +8,8 @@ public class HardpointController : MonoBehaviour {
     public enum Type {
         NONE = 0,
         LASER = 1, 
-        VULCAN = 2
+        VULCAN = 2,
+        ENGINE = 4
     }
     //public static int[] TypeValues = System.Enum.GetValues(typeof(Type)) as int[];
 

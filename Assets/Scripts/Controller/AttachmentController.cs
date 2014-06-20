@@ -35,7 +35,7 @@ public class AttachmentController : MonoBehaviour {
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
-    protected HardpointController[] Hardpoints = new HardpointController[0];
+    public HardpointController[] Hardpoints {get; protected set;}
     protected List<HardpointController> MountingHardpoints = new List<HardpointController>();
 
     protected List<PullTogether> PullingTogether = new List<PullTogether>();
@@ -52,6 +52,7 @@ public class AttachmentController : MonoBehaviour {
 
     protected void AttachmentStart()
     {
+        Hardpoints = new HardpointController[0];
         DiscoverHardpoints();
     }
 
@@ -146,14 +147,14 @@ public class AttachmentController : MonoBehaviour {
         attachment.rotation = rotateUp * attachment.rotation;
     }
 
-    public virtual void Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
+    public virtual bool Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
     {
         FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
         // Move into position then attach.
         if (attachment.rigidbody == null)
         {
             //Debug.Log("Cannot attach if it does not have a ridig body!");
-            return;
+            return false;
         }
 
         RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
@@ -162,9 +163,35 @@ public class AttachmentController : MonoBehaviour {
         attachment.transform.Translate(translate, Space.World);
 
         point.Attached = attachment;
+        point.AttachedPoint = attachmentPoint;
         attachmentPoint.Attached = this;
+        attachmentPoint.AttachedPoint = point;
         joint.connectedBody = attachment.rigidbody;
         attachment.ParentAttachment = this;
+
+        return true;
+    }
+    public virtual bool Detach(HardpointController point)
+    {
+        AttachmentController attachment = point.Attached;
+        if (attachment == null)
+        {
+            return false;
+        }
+        FixedJoint[] joints = gameObject.GetComponents<FixedJoint>();
+        foreach (FixedJoint joint in joints)
+        {
+            if (joint.connectedBody == attachment.rigidbody)
+            {
+                joint.connectedBody = null;
+                Destroy(joint);
+            }
+        }
+
+        point.Detach();
+        attachment.rigidbody.AddForceAtPosition(point.transform.up * 10, point.transform.position);
+
+        return true;
     }
 
     public virtual void DiscoverHardpoints()
@@ -300,6 +327,10 @@ public class AttachmentController : MonoBehaviour {
     {
         foreach (HardpointController point in MountingHardpoints)
         {
+            if (!point.Enabled)
+            {
+                continue;
+            }
             if (point.Matches(matches, isAvailable))
             {
                 return point; 
@@ -336,5 +367,14 @@ public class AttachmentController : MonoBehaviour {
     protected virtual bool OnDiscoverNewAttachment(AttachmentController obj, bool isNewType, bool isNewGroup)
     {
         return true;
+    }
+
+    public virtual void DestroyAttachment()
+    {
+        ParentAttachment = null;
+        foreach (HardpointController hardpoint in MountingHardpoints)
+        {
+            hardpoint.Detach();
+        }
     }
 }

@@ -103,13 +103,12 @@ public class GenerateRoom : MonoBehaviour {
 
         Bounds checkBounds = checkCollider.bounds;
         checkBounds.Expand(-0.2f);
-        //Debug.Log("Checking bounds: " + checkRoom.name + " | " + checkBounds);
         foreach (Collider collida in BuiltColliders)
         {
             Bounds bounds = collida.bounds;
             if (checkBounds.Intersects(bounds))
             {
-                Debug.Log(checkRoom.name + " intersects with " + collida.name);
+                //Debug.Log(checkRoom.name + " intersects with " + collida.name);
                 return true;
             }
         }

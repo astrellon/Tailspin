@@ -44,6 +44,10 @@ Material:
     m_Floats:
       data:
         first:
+          name: _InvFade
+        second: 1.48053563
+      data:
+        first:
           name: _Shininess
         second: 20
       data:

@@ -40,12 +40,6 @@ public class ShipController : AttachmentController {
                 {
                     if (IgnoreAttachments.ContainsKey(attachment.GetInstanceID()))
                     {
-                    
-                    }
-
-                    HardpointController mounting = FindMountingHardpoint();
-                    if (mounting == null)
-                    {
                         continue;
                     }
 
@@ -54,6 +48,14 @@ public class ShipController : AttachmentController {
                     {
                         continue;
                     }
+
+                    Debug.Log("Attach mounting: " + attachMounting.HardpointType);
+                    HardpointController mounting = FindMountingHardpoint(attachMounting.HardpointType);
+                    if (mounting == null)
+                    {
+                        continue;
+                    }
+
 
                     PullAndAttach(mounting, attachment, attachMounting);
                 }

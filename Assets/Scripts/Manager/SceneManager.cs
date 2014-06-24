@@ -12,22 +12,19 @@ public class SceneManager : MonoBehaviour {
 	
         Screen.lockCursor = true;
 
-        /*
-        GameObject player = GameObject.Find("PlayerShip");
-        GameObject gun = GameObject.Find("TestGun");
-        GunController gunController = gun.GetComponent<GunController>();
-        gunController.DiscoverHardpoints();
-        List<HardpointController> mountPoints = gunController.Hardpoints[HardpointController.Type.MOUNTING];
+        GameObject obj1 = GameObject.Find("GameObject1");
+        GameObject obj2 = GameObject.Find("GameObject2");
+        GameObject obj3 = GameObject.Find("GameObject3");
+        GameObject obj4 = GameObject.Find("GameObject4");
 
-        GameObject hardpoint = GameObject.Find("HardpointRight");
-        HardpointController hardpointMount = hardpoint.GetComponent<HardpointController>();
+        Debug.Log("Rotation1: " + obj1.transform.localRotation);
+        Debug.Log("Rotation2: " + obj2.transform.localRotation);
+        Debug.Log("Rotation3: " + obj3.transform.localRotation);
+        
+        Quaternion test1 = Quaternion.Lerp(obj2.transform.rotation, obj1.transform.rotation, 1.0f) * obj3.transform.localRotation;
+        Debug.Log("Test1: " + test1);
 
-        ShipController playerShip = player.GetComponent<ShipController>();
-        */
-        //playerShip.PullAndAttach(hardpointMount, gunController, mountPoints[0]);
-
-        //playerShip.Attach(hardpointMount, gunController, mountPoints[0]);
-        //playerShip.DiscoverConnected();
+        obj4.transform.rotation = test1;
 	}
 	
 	// Update is called once per frame

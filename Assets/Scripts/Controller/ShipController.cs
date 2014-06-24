@@ -49,13 +49,11 @@ public class ShipController : AttachmentController {
                         continue;
                     }
 
-                    Debug.Log("Attach mounting: " + attachMounting.HardpointType);
-                    HardpointController mounting = FindMountingHardpoint(attachMounting.HardpointType);
+                    HardpointController mounting = FindMountingHardpoint(attachMounting.HardpointType, true);
                     if (mounting == null)
                     {
                         continue;
                     }
-
 
                     PullAndAttach(mounting, attachment, attachMounting);
                 }

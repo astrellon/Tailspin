@@ -39,9 +39,10 @@ public class HardpointController : MonoBehaviour {
                 {
                     return false;
                 }
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public void Detach()

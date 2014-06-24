@@ -138,6 +138,7 @@ public class AttachmentController : MonoBehaviour {
 
     public virtual void RotateConnect(Transform point, Transform attachment, Transform attachmentPoint)
     {
+        /*
         Quaternion rotateForward = Quaternion.FromToRotation(
                 attachmentPoint.forward, point.forward);
         attachment.rotation = rotateForward * attachment.rotation;
@@ -145,6 +146,9 @@ public class AttachmentController : MonoBehaviour {
         Quaternion rotateUp = Quaternion.FromToRotation(
                 point.up * -1, attachmentPoint.up);
         attachment.rotation = rotateUp * attachment.rotation;
+        */
+        Quaternion rotation = Quaternion.Lerp(attachment.transform.rotation, point.transform.rotation, 1.0f) * attachmentPoint.transform.localRotation;
+        attachment.rotation = rotation;
     }
 
     public virtual bool Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
@@ -157,6 +161,7 @@ public class AttachmentController : MonoBehaviour {
             return false;
         }
 
+        RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
         RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
 
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
@@ -294,36 +299,11 @@ public class AttachmentController : MonoBehaviour {
         return nearby;
     }
 
-    public virtual HardpointController GetAvailablePoint(AttachmentController forAttachment)
+    public virtual HardpointController FindMountingHardpoint()
     {
-        /*
-        if (Hardpoints.ContainsKey(HardpointController.Type.LASER))
-        {
-            List<HardpointController> list = Hardpoints[HardpointController.Type.LASER];
-            if (list != null)
-            {
-                foreach (HardpointController hardpoint in list)
-                {
-                    PullObjectsController puller = hardpoint.GetComponent<PullObjectsController>();
-                    if (puller != null && puller.PullSpecific != null)
-                    {
-                        continue;
-                    }
-
-                    if (hardpoint.Attached != null)
-                    {
-                        continue;
-                    }
-
-                    return hardpoint;
-                }
-            }
-        }
-        */
-        return null;
+        return FindMountingHardpoint(HardpointController.Type.NONE, true);
     }
-
-    public virtual HardpointController FindMountingHardpoint(HardpointController.Type matches = HardpointController.Type.NONE, bool isAvailable = true)
+    public virtual HardpointController FindMountingHardpoint(HardpointController.Type matches, bool isAvailable)
     {
         foreach (HardpointController point in MountingHardpoints)
         {
@@ -331,31 +311,44 @@ public class AttachmentController : MonoBehaviour {
             {
                 continue;
             }
-            if (point.Matches(matches, isAvailable))
+            if (point.MountingOrder > 0 && point.Matches(matches, isAvailable))
             {
                 return point; 
             }
         }
         return null;
     }
-    public virtual HardpointController FindHardpointWithType(HardpointController.Type matches, bool isAvailable = true)
+    public virtual HardpointController FindHardpointWithType(HardpointController.Type matches, bool isAvailable = true, bool ignoreMounting = true)
     {
         foreach (HardpointController point in Hardpoints)
         {
             if (point.Matches(matches, isAvailable))
             {
+                if (ignoreMounting && point.MountingOrder > 0)
+                {
+                    continue;
+                }
                 return point;
             }
         }
         return null;
     }
+
     public virtual IList<HardpointController> FindAllHardpointsWithType(HardpointController.Type matches)
+    {
+        return FindAllHardpointsWithType(matches, true, true);
+    }
+    public virtual IList<HardpointController> FindAllHardpointsWithType(HardpointController.Type matches, bool isAvailable, bool ignoreMounting)
     {
         List<HardpointController> result = new List<HardpointController>();
         foreach (HardpointController point in Hardpoints)
         {
-            if ((point.HardpointType & matches) == matches)
+            if (point.Matches(matches, isAvailable))
             {
+                if (ignoreMounting && point.MountingOrder > 0)
+                {
+                    continue;
+                }
                 result.Add(point);
             }
         }

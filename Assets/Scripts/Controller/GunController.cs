@@ -6,7 +6,9 @@ public class GunController : AttachmentController {
 
     public GameObject BulletPrefab;
     public AudioClip FireClip;
-    public string GunType = "Laser";
+    
+    [BitMask(typeof(HardpointController.Type))]
+    public HardpointController.Type GunTypes;
 
     public float BulletSpeed = 30.0f;
     public float Cooldown = 0.4f;
@@ -24,7 +26,7 @@ public class GunController : AttachmentController {
     }
     public object FireGun(params object[] arg)
     {
-        IList<HardpointController> firePoints = FindAllHardpointsWithType(HardpointController.Type.LASER);
+        IList<HardpointController> firePoints = FindAllHardpointsWithType(GunTypes);
         Fire(firePoints);
         return true;
     }

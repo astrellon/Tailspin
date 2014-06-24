@@ -39,7 +39,6 @@ public class GunController : AttachmentController {
         {
             return;
         }
-        Debug.Log("Hard points: " + hardpoints.Length);
         NextFire = Time.time + Cooldown;
         foreach (IList<HardpointController> list in hardpoints)
         {

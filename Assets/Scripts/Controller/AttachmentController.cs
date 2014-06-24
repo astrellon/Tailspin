@@ -147,7 +147,7 @@ public class AttachmentController : MonoBehaviour {
                 point.up * -1, attachmentPoint.up);
         attachment.rotation = rotateUp * attachment.rotation;
         */
-        Quaternion rotation = Quaternion.Lerp(attachment.transform.rotation, point.transform.rotation, 1.0f) * attachmentPoint.transform.localRotation;
+        Quaternion rotation = point.transform.rotation * attachmentPoint.transform.localRotation;
         attachment.rotation = rotation;
     }
 

@@ -14,14 +14,10 @@ public class GunController : AttachmentController {
     public float Cooldown = 0.4f;
     private float NextFire = 0.0f;
 
-    //protected HardpointController[] Hardpoints = null; 
-
-    void Start () {
-        //Hardpoints = GetComponentsInChildren<HardpointController>();
-
+    void Start ()
+    {
         AttachInterface["Fire"] = FireGun;
 
-        //DiscoverHardpoints();
         AttachmentStart();
     }
     public object FireGun(params object[] arg)
@@ -29,8 +25,6 @@ public class GunController : AttachmentController {
         IList<HardpointController> firePoints = FindAllHardpointsWithType(GunTypes);
         Fire(firePoints);
         return true;
-    }
-    void Update () {
     }
 
     public void Fire(params IList<HardpointController>[] hardpoints) 

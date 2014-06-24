@@ -56,7 +56,6 @@ public class AttachmentController : MonoBehaviour {
         DiscoverHardpoints();
     }
 
-
     protected virtual void AttachmentUpdate () 
     {
         bool updateConnected = false;
@@ -138,17 +137,8 @@ public class AttachmentController : MonoBehaviour {
 
     public virtual void RotateConnect(Transform point, Transform attachment, Transform attachmentPoint)
     {
-        /*
-        Quaternion rotateForward = Quaternion.FromToRotation(
-                attachmentPoint.forward, point.forward);
-        attachment.rotation = rotateForward * attachment.rotation;
-
-        Quaternion rotateUp = Quaternion.FromToRotation(
-                point.up * -1, attachmentPoint.up);
-        attachment.rotation = rotateUp * attachment.rotation;
-        */
-        Quaternion rotation = point.transform.rotation * attachmentPoint.transform.localRotation;
-        attachment.rotation = rotation;
+        attachment.rotation = 
+            point.transform.rotation * attachmentPoint.transform.localRotation;
     }
 
     public virtual bool Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
@@ -157,11 +147,10 @@ public class AttachmentController : MonoBehaviour {
         // Move into position then attach.
         if (attachment.rigidbody == null)
         {
-            //Debug.Log("Cannot attach if it does not have a ridig body!");
+            Debug.Log("Cannot attach if it does not have a ridig body!");
             return false;
         }
 
-        RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
         RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
 
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
@@ -176,6 +165,11 @@ public class AttachmentController : MonoBehaviour {
 
         return true;
     }
+
+    protected virtual bool OnDetach()
+    {
+        return true;
+    }
     public virtual bool Detach(HardpointController point)
     {
         AttachmentController attachment = point.Attached;
@@ -183,6 +177,12 @@ public class AttachmentController : MonoBehaviour {
         {
             return false;
         }
+
+        if (!attachment.OnDetach())
+        {
+            return false;
+        }
+
         FixedJoint[] joints = gameObject.GetComponents<FixedJoint>();
         foreach (FixedJoint joint in joints)
         {

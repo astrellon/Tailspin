@@ -51,9 +51,18 @@ public class EngineController : AttachmentController {
             foreach (GameObject trail in Trails)
             {
                 Vector3 force = trail.transform.forward * -Thrust;
-                rigidbody.AddForceAtPosition(force, trail.transform.position);
+                if (ParentAttachment != null && ParentAttachment.rigidbody != null)
+                {
+                    ParentAttachment.rigidbody.AddForce(force);
+                }
             }
         }
+    }
+
+    protected override bool OnDetach()
+    {
+        SetThrust(0);
+        return true;
     }
 
     public void SetThrust(float thrust)

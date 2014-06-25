@@ -8,15 +8,15 @@ public class EngineController : AttachmentController {
     protected List<GameObject> Trails = new List<GameObject>();
 
     public float MaxThrust = 1000.0f;
-    public float Thrust = 750.0f;
+    public float Thrust = 0.0f;
 
     void Start() 
     {
         AttachmentStart();
-        SetThrust(Thrust);
         IList<HardpointController> enginePoints =
             FindAllHardpointsWithType(HardpointController.Type.ENGINE);
         CreateEngines(enginePoints);
+        SetThrust(Thrust);
     }
 
     protected virtual void CreateEngines(IList<HardpointController> hardpoints)

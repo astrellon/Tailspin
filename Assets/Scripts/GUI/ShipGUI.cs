@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ShipGUI : MonoBehaviour {
 
@@ -17,7 +18,8 @@ public class ShipGUI : MonoBehaviour {
         return null;
     }
 
-    void Start() {
+    void Start() 
+    {
         Hull = FindGUIText("Hull");
         Hardpoints = FindGUIText("Hardpoints");
     }
@@ -53,6 +55,31 @@ public class ShipGUI : MonoBehaviour {
                 points += "\n";
             }
             Hardpoints.text = points;
+        }
+
+        SensorController sensors = Ship.GetComponent<SensorController>();
+        if (sensors != null)
+        {
+            GUIStyle style = new GUIStyle();
+            style.alignment = TextAnchor.UpperCenter;
+
+            Camera cam = Camera.main;
+
+            IDictionary<int, SensorController.Entry> entries = sensors.GetEntries();
+            foreach (KeyValuePair<int, SensorController.Entry> pair in entries)
+            {
+                Vector3 screenPos = cam.WorldToScreenPoint(pair.Value.GetPosition());
+                if (screenPos.z < 0) {
+                    continue;
+                }
+                string colour = "white";
+                if (!pair.Value.Visible) {
+                    colour = "red";
+                }
+                string text = "<color=" + colour + ">" + pair.Value.Object.name + "</color>";
+                GUI.Label(new Rect(screenPos.x - 40, cam.pixelHeight - screenPos.y + 10, 80, 20), text, style);
+            }
+
         }
     }
 }

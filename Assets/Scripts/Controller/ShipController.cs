@@ -28,6 +28,39 @@ public class ShipController : AttachmentController {
         ShipUpdate();
     }
 
+    private static AttachmentController[] EmptyAttachments = new AttachmentController[0];
+
+    public IList<AttachmentController> DiscoverNearbyAttachable(float distance)
+    {
+        SensorController sensors = GetComponent<SensorController>();
+        if (!sensors)
+        {
+            return EmptyAttachments;
+        }
+
+        float dist2 = distance * distance;
+
+        List<AttachmentController> result = new List<AttachmentController>();
+        IDictionary<int, SensorController.Entry> sensorEntries = sensors.GetEntries();
+        foreach (KeyValuePair<int, SensorController.Entry> pair in sensorEntries)
+        {
+            if (!pair.Value.Visible)
+            {
+                continue;
+            }
+
+            AttachmentController attachment = pair.Value.Object;
+            Vector4 pos = attachment.transform.position;
+            if (Vector4.Dot(pos, pos) > dist2)
+            {
+                continue;
+            }
+
+            result.Add(attachment);
+        }
+        return result;
+    }
+
     protected void ShipUpdate()
     {
         Counter++;

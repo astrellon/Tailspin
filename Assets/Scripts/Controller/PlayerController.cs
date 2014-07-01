@@ -66,9 +66,18 @@ public class PlayerController : ShipController {
             DiscoverConnected(true);
         }
 
-        if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) 
+        if (Input.GetMouseButton(0)) 
         {
-            FireGun();
+            CallAttachmentInterfaceByGroup(CurrentGunGroup, "Fire");
+            //FireGun();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CallAttachmentInterfaceByGroup("engine", "SetThrust", "100%");
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CallAttachmentInterfaceByGroup("engine", "SetThrust", "0%");
         }
 
         // TODO!

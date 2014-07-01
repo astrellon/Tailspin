@@ -7,7 +7,26 @@ public class PullObjectsController : MonoBehaviour {
     public bool Enabled = true;
     public bool EnableGeneralPull = false;
 
-    public PullableController PullSpecific = null;
+    private PullableController _PullSpecific = null;
+    public PullableController PullSpecific {
+        get 
+        {
+            return _PullSpecific;
+        }
+        set
+        {
+            if (_PullSpecific != null)
+            {
+                _PullSpecific.CapturedBy = null;
+            }
+        
+            _PullSpecific = value;
+            if (_PullSpecific != null)
+            {
+                _PullSpecific.CapturedBy = this;
+            }
+        }
+    }
 
     void Update () {
         if (!Enabled)
@@ -46,8 +65,14 @@ public class PullObjectsController : MonoBehaviour {
         //float pull = Mathf.Sqrt(Radius * Radius - distance * distance) / Radius * Strength;
         // Linear falloff.
         float pull = Strength - (Strength / Radius) * distance;
+        if (pull < 0)
+        {
+            PullSpecific = null;
+            return;
+        }
 
-        float mass = pullRigidbody.mass;
+        // Do something with mass?
+        //float mass = pullRigidbody.mass;
 
         pullRigidbody.AddForce(toTarget * -pull);
     }

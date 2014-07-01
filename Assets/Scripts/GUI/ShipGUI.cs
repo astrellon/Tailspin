@@ -7,6 +7,7 @@ public class ShipGUI : MonoBehaviour {
     public ShipController Ship = null;
     protected GUIText Hull = null;
     protected GUIText Hardpoints = null;
+    protected GUIText Nearby = null;
 
     protected GUIText FindGUIText(string child)
     {
@@ -22,6 +23,7 @@ public class ShipGUI : MonoBehaviour {
     {
         Hull = FindGUIText("Hull");
         Hardpoints = FindGUIText("Hardpoints");
+        Nearby = FindGUIText("Nearby");
     }
 
     void OnGUI() {
@@ -64,22 +66,40 @@ public class ShipGUI : MonoBehaviour {
             style.alignment = TextAnchor.UpperCenter;
 
             Camera cam = Camera.main;
+            string nearby = "Nearby:";
 
             IDictionary<int, SensorController.Entry> entries = sensors.GetEntries();
             foreach (KeyValuePair<int, SensorController.Entry> pair in entries)
             {
-                Vector3 screenPos = cam.WorldToScreenPoint(pair.Value.GetPosition());
-                if (screenPos.z < 0) {
+                if (pair.Value.GetAttachedTo() == Ship || pair.Value.Object == Ship)
+                {
                     continue;
                 }
+
                 string colour = "white";
-                if (!pair.Value.Visible) {
+                if (!pair.Value.Visible)
+                {
                     colour = "red";
                 }
-                string text = "<color=" + colour + ">" + pair.Value.Object.name + "</color>";
+
+                float dist = Vector4.Distance(pair.Value.Object.transform.position, Ship.transform.position);
+                string entryText = pair.Value.Object.name + " (" + dist.ToString("N") + ")";
+                string text = "<color=" + colour + ">" + entryText + " </color>";
+                nearby += "\n" + text;
+
+                Vector3 screenPos = cam.WorldToScreenPoint(pair.Value.GetPosition());
+                if (screenPos.z < 0)
+                {
+                    continue;
+                }
+
                 GUI.Label(new Rect(screenPos.x - 40, cam.pixelHeight - screenPos.y + 10, 80, 20), text, style);
             }
 
+            if (Nearby != null)
+            {
+                Nearby.text = nearby;
+            }
         }
     }
 }

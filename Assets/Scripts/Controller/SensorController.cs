@@ -9,6 +9,7 @@ public class SensorController : MonoBehaviour {
     public class Entry
     {
         public AttachmentController Object {get; set;}
+        public AttachmentController AttachedTo {get; set;}
         public Vector3 Position {get; set;}
         public bool Visible {get; set;}
 
@@ -21,11 +22,11 @@ public class SensorController : MonoBehaviour {
 
         public void Update(bool visible)
         {
-            //Debug.Log("Updating sensor object: " + Object.name + " (" + visible + ")");
             Visible = visible;
             if (Visible)
             {
                 Position = Object.transform.position;
+                AttachedTo = Object.ParentAttachment;
             }
         }
 
@@ -36,6 +37,14 @@ public class SensorController : MonoBehaviour {
                 return Object.transform.position;
             }
             return Position;
+        }
+        public AttachmentController GetAttachedTo()
+        {
+            if (Visible)
+            {
+                return Object.ParentAttachment;
+            }
+            return AttachedTo;
         }
     }
 
@@ -63,7 +72,6 @@ public class SensorController : MonoBehaviour {
     }
     public virtual void DiscoverNearby()
     {
-        //List<AttachmentController> nearby = new List<AttachmentController>();
         foreach (KeyValuePair<int, Entry> entry in Entries)
         {
             entry.Value.Visible = false;
@@ -80,21 +88,18 @@ public class SensorController : MonoBehaviour {
 
             bool visible = false;
             RaycastHit hit;
-            if (Physics.Linecast(transform.position, attachment.transform.position, out hit,1 << 10 | 1 << 9 | 1 << 8))
+            // If we don't hit any terrain then we'll assume that it is within sight.
+            if (!Physics.Linecast(transform.position, attachment.transform.position, out hit, 1 << 11))
             {
-                if (hit.collider == null || hit.collider == attachment.collider)
-                {
-                    visible = true;
-                }
+                visible = true;
             }
             int id = attachment.GetInstanceID(); 
             if (Entries.ContainsKey(id))
             {
                 Entries[id].Update(visible);
             }
-            else
+            else if (visible)
             {
-                //Debug.Log("New sensor object found: " + attachment.name + " (" + visible + ")");
                 Entries[id] = new Entry(attachment, visible);
             }
         }

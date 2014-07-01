@@ -332,7 +332,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!1 &72018760
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,6 +820,7 @@ Transform:
   m_Children:
   - {fileID: 574795574}
   - {fileID: 267141569}
+  - {fileID: 586093959}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!114 &387671641
@@ -895,7 +895,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!1 &391143038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1486,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &558972178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,6 +1553,57 @@ GUIText:
     rgba: 4294967295
   m_PixelCorrect: 1
   m_RichText: 1
+--- !u!1 &586093957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 586093959}
+  - 132: {fileID: 586093958}
+  m_Layer: 0
+  m_Name: Nearby
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!132 &586093958
+GUIText:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 586093957}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Text: 'Nearby:'
+  m_Anchor: 2
+  m_Alignment: 2
+  m_PixelOffset: {x: 0, y: 0}
+  m_LineSpacing: 1
+  m_TabSize: 4
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Material: {fileID: 0}
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_PixelCorrect: 1
+  m_RichText: 1
+--- !u!4 &586093959
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 586093957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .949999988, y: .949999988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 387671640}
+  m_RootOrder: 2
 --- !u!1 &588827782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,7 +1788,7 @@ GameObject:
   - 4: {fileID: 719199830}
   - 114: {fileID: 719199829}
   - 114: {fileID: 719199831}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SceneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1932,7 +1981,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &884073238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,7 +2511,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!1 &1112744325
 GameObject:
   m_ObjectHideFlags: 0
@@ -2496,7 +2543,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &1112744327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2557,7 +2603,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &1114389782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2674,7 +2719,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &1134433353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2735,7 +2779,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &1145235504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3374,7 +3417,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!1 &1359380009
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,7 +3521,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!1 &1473353352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,7 +4253,6 @@ MonoBehaviour:
   Strength: 2
   Enabled: 1
   EnableGeneralPull: 0
-  PullSpecific: {fileID: 0}
 --- !u!114 &1728823923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4384,7 +4424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentAttachment: {fileID: 0}
   AttachmentType: engine
-  AttachmentGroup: group
+  AttachmentGroup: engine
   PullRadius: 10
   TrailPrefab: {fileID: 100000, guid: 0f88e358acbea9d40af392677274105a, type: 2}
   MaxThrust: 10000

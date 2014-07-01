@@ -130,7 +130,6 @@ public class AttachmentController : MonoBehaviour {
             return;
         }
         puller.PullSpecific = pullable;
-        pullable.CapturedBy = puller;
 
         PullingTogether.Add(new PullTogether(point, attachment, attachmentPoint));
     }

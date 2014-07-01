@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 // Have to be defined somewhere in a runtime script file
 public class BitMaskAttribute : PropertyAttribute

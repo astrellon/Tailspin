@@ -2234,8 +2234,8 @@ MonoBehaviour:
   AttachmentGroup: group
   PullRadius: 10
   ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
-  FlightSpeed: 10000
-  RotateTorque: 1000
+  FlightSpeed: 4000
+  RotateTorque: 800
   Hull: 10
   CurrentGunGroup: laser1
 --- !u!82 &960598592
@@ -2376,7 +2376,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975710598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.86042886e-08, y: .919430137, z: -1.66836739}
+  m_LocalPosition: {x: 2.31082694e-07, y: .0539144278, z: .677815974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 960598586}

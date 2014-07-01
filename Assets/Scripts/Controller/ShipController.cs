@@ -125,13 +125,21 @@ public class ShipController : AttachmentController {
         return false;
     }
 
+    private Vector4 MoveAccum = new Vector4();
+    private Vector4 RotateAccum = new Vector4();
     public void MoveDirection(float x, float y, float z)
     {
-        rigidbody.AddRelativeForce (x * FlightSpeed, y * FlightSpeed, z * FlightSpeed);
+        //rigidbody.AddRelativeForce (x * FlightSpeed, y * FlightSpeed, z * FlightSpeed);
+        MoveAccum.x += x;
+        MoveAccum.y += y;
+        MoveAccum.z += z;
     }
     public void Rotate(float x, float y, float z)
     {
-        rigidbody.AddRelativeTorque(x * RotateTorque, y * RotateTorque, z * RotateTorque);
+        //rigidbody.AddRelativeTorque(x * RotateTorque, y * RotateTorque, z * RotateTorque);
+        RotateAccum.x += x;
+        RotateAccum.y += y;
+        RotateAccum.z += z;
     }
 
     public bool IsDead()
@@ -156,5 +164,13 @@ public class ShipController : AttachmentController {
                 Destroy(transform.gameObject);
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        rigidbody.AddRelativeForce (MoveAccum.x * FlightSpeed, MoveAccum.y * FlightSpeed, MoveAccum.z * FlightSpeed);
+        rigidbody.AddRelativeTorque(RotateAccum.x * RotateTorque, RotateAccum.y * RotateTorque, RotateAccum.z * RotateTorque);
+        MoveAccum.x = MoveAccum.y = MoveAccum.z = 0.0f;
+        RotateAccum.x = RotateAccum.y = RotateAccum.z = 0.0f;
     }
 }

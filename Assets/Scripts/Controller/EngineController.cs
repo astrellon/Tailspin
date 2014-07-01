@@ -118,7 +118,7 @@ public class EngineController : AttachmentController {
         }
     }
 
-    void Update ()
+    void FixedUpdate ()
     {
         if (rigidbody != null)
         {

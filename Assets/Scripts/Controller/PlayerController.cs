@@ -7,7 +7,7 @@ public class PlayerController : ShipController {
     {
         AttachmentStart();
     }
-	void Update () 
+    void Update ()
     {
         ShipUpdate();
 
@@ -42,11 +42,11 @@ public class PlayerController : ShipController {
 
         if (Input.GetKey (KeyCode.Q))
         {
-            Rotate(0, 0, 1);
+            Rotate(0, 0, 0.5f);
         }
         if (Input.GetKey (KeyCode.E))
         {
-            Rotate(0, 0, -1);
+            Rotate(0, 0, -0.5f);
         }
         if (Input.GetKey (KeyCode.Alpha1))
         {

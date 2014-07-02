@@ -2761,7 +2761,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &960598591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2778,7 +2778,7 @@ MonoBehaviour:
   AttachmentGroup: group
   PullRadius: 10
   ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
-  FlightSpeed: 4000
+  FlightSpeed: 8000
   RotateTorque: 800
   Hull: 10
   CurrentGunGroup: laser1

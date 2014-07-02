@@ -671,8 +671,8 @@ MonoBehaviour:
   TrailPrefab: {fileID: 100000, guid: 0f88e358acbea9d40af392677274105a, type: 2}
   MaxThrust: 10000
   Thrust: 0
-  ThrustPowerUp: 10000
-  ThrustPowerDown: 20000
+  ThrustPowerUp: 1
+  ThrustPowerDown: .5
 --- !u!1 &181246301
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,8 +2140,8 @@ MonoBehaviour:
   TrailPrefab: {fileID: 100000, guid: 0f88e358acbea9d40af392677274105a, type: 2}
   MaxThrust: 10000
   Thrust: 0
-  ThrustPowerUp: 10000
-  ThrustPowerDown: 20000
+  ThrustPowerUp: 1
+  ThrustPowerDown: .5
 --- !u!4 &619172521
 Transform:
   m_ObjectHideFlags: 0
@@ -5117,8 +5117,8 @@ MonoBehaviour:
   TrailPrefab: {fileID: 100000, guid: 0f88e358acbea9d40af392677274105a, type: 2}
   MaxThrust: 10000
   Thrust: 0
-  ThrustPowerUp: 10000
-  ThrustPowerDown: 20000
+  ThrustPowerUp: 1
+  ThrustPowerDown: .5
 --- !u!54 &1771760212
 Rigidbody:
   m_ObjectHideFlags: 0

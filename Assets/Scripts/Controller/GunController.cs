@@ -41,6 +41,7 @@ public class GunController : AttachmentController {
                 Vector3 position = obj.transform.position + obj.transform.forward * 1.0f;
                 GameObject newBullet = Instantiate(BulletPrefab, position, obj.transform.rotation) as GameObject;
                 newBullet.rigidbody.velocity = obj.transform.forward * BulletSpeed;
+                Debug.Log("Current velocity = " + obj.rigidbody.velocity);
                 if (collider != null)
                 {
                     Physics.IgnoreCollision(newBullet.collider, collider);

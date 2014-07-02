@@ -9,8 +9,8 @@ public class EngineController : AttachmentController {
 
     public float MaxThrust = 1000.0f;
     public float Thrust = 0.0f;
-    public float ThrustPowerUp = 1000.0f;
-    public float ThrustPowerDown = 2000.0f;
+    public float ThrustPowerUp = 1.0f;
+    public float ThrustPowerDown = 0.5f;
     public float CurrentThrust {get; protected set;}
 
     void Start() 
@@ -153,7 +153,7 @@ public class EngineController : AttachmentController {
         {
             if (CurrentThrust > Thrust)
             {
-                float dt = ThrustPowerDown * Time.deltaTime;
+                float dt = (1.0f / ThrustPowerDown * Time.deltaTime) * MaxThrust;
                 CurrentThrust -= dt;
                 if (CurrentThrust < Thrust)
                 {
@@ -162,7 +162,7 @@ public class EngineController : AttachmentController {
             }
             else
             {
-                float dt = ThrustPowerUp * Time.deltaTime;
+                float dt = (1.0f / ThrustPowerUp * Time.deltaTime) * MaxThrust;
                 CurrentThrust += dt;
                 if (CurrentThrust > Thrust)
                 {

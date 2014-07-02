@@ -129,14 +129,12 @@ public class ShipController : AttachmentController {
     private Vector4 RotateAccum = new Vector4();
     public void MoveDirection(float x, float y, float z)
     {
-        //rigidbody.AddRelativeForce (x * FlightSpeed, y * FlightSpeed, z * FlightSpeed);
         MoveAccum.x += x;
         MoveAccum.y += y;
         MoveAccum.z += z;
     }
     public void Rotate(float x, float y, float z)
     {
-        //rigidbody.AddRelativeTorque(x * RotateTorque, y * RotateTorque, z * RotateTorque);
         RotateAccum.x += x;
         RotateAccum.y += y;
         RotateAccum.z += z;

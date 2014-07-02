@@ -9,6 +9,9 @@ public class EngineController : AttachmentController {
 
     public float MaxThrust = 1000.0f;
     public float Thrust = 0.0f;
+    public float ThrustPowerUp = 1000.0f;
+    public float ThrustPowerDown = 2000.0f;
+    public float CurrentThrust {get; protected set;}
 
     void Start() 
     {
@@ -32,7 +35,7 @@ public class EngineController : AttachmentController {
             {
                 return Thrust;
             }
-            SetThrust(Thrust + deltaThrust);
+            Thrust += deltaThrust;
         }
         return Thrust;
     }
@@ -58,7 +61,7 @@ public class EngineController : AttachmentController {
             {
                 return false;
             }
-            SetThrust(thrust);
+            Thrust = thrust;
             return true;
         }
         return false;
@@ -124,7 +127,7 @@ public class EngineController : AttachmentController {
         {
             foreach (GameObject trail in Trails)
             {
-                Vector3 force = trail.transform.forward * -Thrust;
+                Vector3 force = trail.transform.forward * -CurrentThrust;
                 if (ParentAttachment != null && ParentAttachment.rigidbody != null)
                 {
                     ParentAttachment.rigidbody.AddForce(force);
@@ -139,18 +142,49 @@ public class EngineController : AttachmentController {
         return true;
     }
 
+    void Update ()
+    {
+        UpdateThrust();
+    }
+
+    void UpdateThrust()
+    {
+        if (CurrentThrust != Thrust)
+        {
+            if (CurrentThrust > Thrust)
+            {
+                float dt = ThrustPowerDown * Time.deltaTime;
+                CurrentThrust -= dt;
+                if (CurrentThrust < Thrust)
+                {
+                    CurrentThrust = Thrust;
+                }
+            }
+            else
+            {
+                float dt = ThrustPowerUp * Time.deltaTime;
+                CurrentThrust += dt;
+                if (CurrentThrust > Thrust)
+                {
+                    CurrentThrust = Thrust;
+                }
+            }
+            SetThrust(CurrentThrust);
+        }
+    }
+
     public void SetThrust(float thrust)
     {
-        Thrust = thrust;
-        if (Thrust < 0.0f)
+        if (thrust < 0.0f)
         {
-            Thrust = 0.0f;
+            thrust = 0.0f;
         }
-        else if (Thrust > MaxThrust)
+        else if (thrust > MaxThrust)
         {
-            Thrust = MaxThrust;
+            thrust = MaxThrust;
         }
 
+        float time = thrust / MaxThrust;
         foreach (GameObject trail in Trails)
         {
             if (trail.animation == null)
@@ -159,7 +193,7 @@ public class EngineController : AttachmentController {
             }
             foreach (AnimationState state in trail.animation)
             {
-                state.time = Thrust / MaxThrust;
+                state.time = time;
                 state.enabled = true;
                 trail.animation.Sample();
                 state.enabled = false;

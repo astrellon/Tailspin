@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class HardpointController : MonoBehaviour {
 
     [System.Flags]
-    public enum Type {
-        NONE = 0,
-        LASER = 1, 
-        VULCAN = 2,
-        ENGINE = 4
+    public enum Type 
+    {
+        NONE =      0x00,
+        LASER =     0x01, 
+        VULCAN =    0x02,
+        ENGINE =    0x04
     }
-    //public static int[] TypeValues = System.Enum.GetValues(typeof(Type)) as int[];
 
     [BitMask(typeof(Type))]
     public Type HardpointType = Type.LASER;

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+
 public class AttachmentController : MonoBehaviour {
 
     public class PullTogether {
@@ -19,6 +20,7 @@ public class AttachmentController : MonoBehaviour {
         }
     }
 
+    // Connected attachments
     protected Dictionary<int, AttachmentController> ConnectedAttachments = new Dictionary<int, AttachmentController>();
 
     public delegate object AttachFunction(params object[] args);
@@ -28,18 +30,26 @@ public class AttachmentController : MonoBehaviour {
     public string AttachmentType = "none";
     public string AttachmentGroup = "group";
 
+    // A map of functions that can be called on this attachment
     public Dictionary<string, AttachFunction> AttachInterface = 
         new Dictionary<string, AttachFunction>();
+    // Attachments organised by attachment type
     public Dictionary<string, List<AttachmentController>> AttachmentTypes =
         new Dictionary<string, List<AttachmentController>>();
+    // Attachments organised by attachment group
     public Dictionary<string, List<AttachmentController>> AttachmentGroups =
         new Dictionary<string, List<AttachmentController>>();
 
+    // Hardpoints for this attachment
     public HardpointController[] Hardpoints {get; protected set;}
+    // Hardpoints that can be used for mounting
     protected List<HardpointController> MountingHardpoints = new List<HardpointController>();
 
     protected List<PullTogether> PullingTogether = new List<PullTogether>();
     public float PullRadius = 10.0f;
+
+    public Vector3 CenterOfMass {get; protected set;}
+    public float TotalMass {get; protected set;}
 
     void Start ()
     {
@@ -54,6 +64,7 @@ public class AttachmentController : MonoBehaviour {
     {
         Hardpoints = new HardpointController[0];
         DiscoverHardpoints();
+        CalculateCenterOfMass();
     }
 
     protected virtual void AttachmentUpdate () 
@@ -142,11 +153,22 @@ public class AttachmentController : MonoBehaviour {
 
     public virtual bool Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
     {
+        if (attachment == null)
+        {
+            Debug.Log("Cannot attach null attachment");
+            return false;
+        }
+
+        if (ConnectedAttachments.ContainsKey(attachment.GetInstanceID()))
+        {
+            return true;
+        }
+
         FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
         // Move into position then attach.
         if (attachment.rigidbody == null)
         {
-            Debug.Log("Cannot attach if it does not have a ridig body!");
+            Debug.Log("Cannot attach if it does not have a rigidbody!");
             return false;
         }
 
@@ -258,6 +280,8 @@ public class AttachmentController : MonoBehaviour {
                 }
             }
         }
+
+        CalculateCenterOfMass();
     }
 
     public virtual IList<AttachmentController> DiscoverNearbyAttachable()
@@ -269,27 +293,18 @@ public class AttachmentController : MonoBehaviour {
             PullableController pullable = collider.transform.GetComponent<PullableController>();
             if (pullable == null || pullable.CapturedBy != null)
             {
-                //Debug.Log("Collider " + collider.name + " is not pullable");
                 continue;
             }
             
             AttachmentController attachment = collider.transform.GetComponent<AttachmentController>();
             if (attachment == null)
             {
-                //Debug.Log("Collider " + collider.name + " has no attachment");
                 continue;
             }
 
             HardpointController mounting = attachment.FindMountingHardpoint();
-            if (mounting == null)
+            if (mounting == null || mounting.Attached != null)
             {
-                //Debug.Log("Attachment " + collider.name + " has not mounting point");
-                continue;
-            }
-
-            if (mounting.Attached != null)
-            {
-                //Debug.Log("Attachment " + collider.name + " already mounted");
                 continue;
             }
 
@@ -368,5 +383,24 @@ public class AttachmentController : MonoBehaviour {
         {
             hardpoint.Detach();
         }
+    }
+
+    public virtual void CalculateCenterOfMass()
+    {
+        Vector3 com = new Vector3();
+        float mass = 0.0f;
+
+        foreach (KeyValuePair<int, AttachmentController> pair in ConnectedAttachments)
+        {
+            Rigidbody rigid = pair.Value.rigidbody;
+            if (rigid == null)
+            {
+                continue;
+            }
+            com += rigid.worldCenterOfMass * rigid.mass;
+            mass += rigid.mass;
+        }
+        CenterOfMass = (com / mass) - transform.position;
+        TotalMass = mass;
     }
 }

@@ -11,8 +11,10 @@ public class ShipController : AttachmentController {
     protected List<string> GunGroups = new List<string>();
     public string CurrentGunGroup = null;
     protected Dictionary<int, AttachmentController> IgnoreAttachments = new Dictionary<int, AttachmentController>();
+    public FlightComputerController FlightComputer = null;
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         DiscoverConnected();
 	}
     
@@ -57,6 +59,23 @@ public class ShipController : AttachmentController {
             }
 
             result.Add(attachment);
+        }
+        return result;
+    }
+
+    public override bool Attach(HardpointController point, AttachmentController attachment, HardpointController attachmentPoint)
+    {
+        bool result = base.Attach(point, attachment, attachmentPoint);
+        if (result)
+        {
+            if (FlightComputer != null)
+            {
+                EngineController engine = attachment as EngineController;
+                if (engine != null)
+                {
+                    FlightComputer.AddEngine(engine);
+                }
+            }
         }
         return result;
     }

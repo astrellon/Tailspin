@@ -36,7 +36,7 @@ public class FlightComputerController : MonoBehaviour {
     }
 
     public Dictionary<Controls, List<EngineEntity>> Engines {get; protected set;}
-    public AttachmentController ParentController {get; set;}
+    public AttachmentController ParentController = null;
     private static float Half = Mathf.Sqrt(2) * 0.5f;
     private static float Zero = 0.00001f;
 
@@ -59,31 +59,42 @@ public class FlightComputerController : MonoBehaviour {
         }
     }
 
-
     private void AddEngine(EngineController engine, float distance, Controls control)
     {
-
         if (!Engines.ContainsKey(control))
         {
             Engines[control] = new List<EngineEntity>();
         }
+        Debug.Log("Adding engine: " + engine.name + " to " + control.ToString());
         Engines[control].Add(new EngineEntity(engine, distance));
     }
     public void AddEngine(EngineController engine)
     {
         if (engine == null)
         {
+            Debug.Log("Cannot add null engine.");
             return;
         }
+        if (ParentController == null)
+        {
+            Debug.Log("Cannot add engine without a parent controller");
+            return;
+        }
+        Debug.Log("Adding engine: " + engine.name);
 
-        Vector3 localPosition = engine.transform.position - ParentController.transform.position;
+        Vector3 localPosition = transform.worldToLocalMatrix.MultiplyPoint3x4(engine.transform.position);
+
         Vector3 toCOM = ParentController.CenterOfMass - localPosition;
+        Vector3 normToCOM = toCOM.normalized;
+        Debug.Log(ParentController.CenterOfMass + " | " + localPosition);
         float distance = toCOM.magnitude;
 
-        float goForward = Vector3.Dot(toCOM, Vector3.forward);
-        float goRight = Vector3.Dot(toCOM, Vector3.right);
-        float goUp = Vector3.Dot(toCOM, Vector3.up);
-        Vector3 angle = Vector3.Cross(engine.transform.forward, toCOM);
+        float goForward = Vector3.Dot(normToCOM, Vector3.forward);
+        float goRight = Vector3.Dot(normToCOM, Vector3.right);
+        float goUp = Vector3.Dot(normToCOM, Vector3.up);
+        Debug.Log("ToCOM: " + normToCOM);
+        Debug.Log("F: " + goForward + ", R: " + goRight + ", U: " + goUp);
+        Vector3 angle = Vector3.Cross(engine.transform.forward, normToCOM);
 
         // Check if going forward
         if (goForward > Half)

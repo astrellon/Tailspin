@@ -161,7 +161,7 @@ public class AttachmentController : MonoBehaviour {
 
         if (ConnectedAttachments.ContainsKey(attachment.GetInstanceID()))
         {
-            return true;
+            return false;
         }
 
         FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
@@ -387,8 +387,8 @@ public class AttachmentController : MonoBehaviour {
 
     public virtual void CalculateCenterOfMass()
     {
-        Vector3 com = new Vector3();
-        float mass = 0.0f;
+        Vector3 com = rigidbody.worldCenterOfMass * rigidbody.mass;
+        float mass = rigidbody.mass;
 
         foreach (KeyValuePair<int, AttachmentController> pair in ConnectedAttachments)
         {
@@ -397,10 +397,15 @@ public class AttachmentController : MonoBehaviour {
             {
                 continue;
             }
+            Debug.Log(pair.Value.name + ": " + rigid.worldCenterOfMass + ", " + rigid.mass);
             com += rigid.worldCenterOfMass * rigid.mass;
             mass += rigid.mass;
         }
-        CenterOfMass = (com / mass) - transform.position;
+        if (mass > 0.0f)
+        {
+            CenterOfMass = (com / mass) - transform.position;
+            Debug.Log(transform.name + ": Calced COM: " + CenterOfMass + " | " + transform.position);
+        }
         TotalMass = mass;
     }
 }

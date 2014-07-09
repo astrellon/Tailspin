@@ -18,6 +18,14 @@ obj/
 *.user
 *.unityproj
 *.booproj
+*.db
+*.mdb
+
+# ============= #
+# Vim generated #
+# ============= #
+*.swp
+*.swo
 
 # ============ #
 # OS generated #
@@ -29,3 +37,4 @@ obj/
 .Trashes
 ehthumbs.db
 Thumbs.db
+

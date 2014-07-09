@@ -34,7 +34,11 @@ public class ShipGUI : MonoBehaviour {
 
         if (Hull != null)
         {
-            Hull.text = "Hull: " + Ship.Hull + "\nShields: " + Ship.Shields;
+            Hull.text = "Hull: " + Ship.Hull;
+            if (Ship.MaxShields > 0.0f || Ship.Shields > 0.0f)
+            {
+                Hull.text += "\nShields: " + Ship.Shields;
+            }
         }
         if (Hardpoints != null)
         {

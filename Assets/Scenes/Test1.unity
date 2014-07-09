@@ -481,11 +481,11 @@ MonoBehaviour:
   AttachmentType: gun
   AttachmentGroup: laser1
   PullRadius: 10
-  BulletPrefab: {fileID: 100000, guid: 0f4a9394bc20f45478b7817d68f1e981, type: 2}
+  BulletPrefab: {fileID: 100002, guid: c9b8ede4794358c49a5ed66ded155688, type: 2}
   FireClip: {fileID: 8300000, guid: 8d6df1be07e039f4faf73269ed8905b4, type: 3}
   GunTypes: 1
-  BulletSpeed: 40
-  Cooldown: .300000012
+  BulletSpeed: 200
+  Cooldown: .100000001
 --- !u!1001 &82722807
 Prefab:
   m_ObjectHideFlags: 0
@@ -3970,11 +3970,11 @@ MonoBehaviour:
   AttachmentType: gun
   AttachmentGroup: laser1
   PullRadius: 10
-  BulletPrefab: {fileID: 100000, guid: 0f4a9394bc20f45478b7817d68f1e981, type: 2}
+  BulletPrefab: {fileID: 100002, guid: c9b8ede4794358c49a5ed66ded155688, type: 2}
   FireClip: {fileID: 8300000, guid: 8d6df1be07e039f4faf73269ed8905b4, type: 3}
   GunTypes: 1
-  BulletSpeed: 40
-  Cooldown: .300000012
+  BulletSpeed: 200
+  Cooldown: .100000001
 --- !u!1 &1334429063
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,12 @@ public class ShipController : AttachmentController {
     public float FlightSpeed = 15.0f;
     public float RotateTorque = 1.0f;
     public float Hull = 10.0f;
+    public float MaxHull = 10.0f;
+    public float Shields = 10.0f;
+    public float MaxShields = 10.0f;
+    public float ShieldRegen = 1.0f;
+    public float ShieldWaitTime = 3.0f;
+    private float LastHitTime = 0.0f;
     protected List<string> GunGroups = new List<string>();
     public string CurrentGunGroup = null;
     protected Dictionary<int, AttachmentController> IgnoreAttachments = new Dictionary<int, AttachmentController>();
@@ -82,6 +88,18 @@ public class ShipController : AttachmentController {
 
     protected void ShipUpdate()
     {
+        if (Shields < MaxShields)
+        {
+            Debug.Log("Hit times: " + LastHitTime + ", " + ShieldWaitTime + " | " + Time.time);
+            if (LastHitTime + ShieldWaitTime < Time.time)
+            {
+                Shields += ShieldRegen * Time.deltaTime;
+                if (Shields > MaxShields)
+                {
+                    Shields = MaxShields;
+                }
+            }
+        }
         Counter++;
         if (Counter > 10)
         {
@@ -167,8 +185,15 @@ public class ShipController : AttachmentController {
     {
         if (!IsDead())
         {
-            Hull -= damage;
-            Debug.Log("Hull now at: " + Hull);
+            if (Shields > 0.0f)
+            {
+                Shields -= damage;
+            }
+            else 
+            {
+                Hull -= damage;
+            }
+            LastHitTime = Time.time;
 
             if (IsDead())
             {

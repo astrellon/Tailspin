@@ -34,7 +34,7 @@ public class ShipGUI : MonoBehaviour {
 
         if (Hull != null)
         {
-            Hull.text = "Hull: " + Ship.Hull;
+            Hull.text = "Hull: " + Ship.Hull + "\nShields: " + Ship.Shields;
         }
         if (Hardpoints != null)
         {
@@ -82,8 +82,8 @@ public class ShipGUI : MonoBehaviour {
                     colour = "red";
                 }
 
-                float dist = Vector4.Distance(pair.Value.Object.transform.position, Ship.transform.position);
-                string entryText = pair.Value.Object.name + " (" + dist.ToString("N") + ")";
+                float dist = Vector4.Distance(pair.Value.GetPosition(), Ship.transform.position);
+                string entryText = pair.Value.GetName() + " (" + dist.ToString("N") + ")";
                 string text = "<color=" + colour + ">" + entryText + " </color>";
                 nearby += "\n" + text;
 

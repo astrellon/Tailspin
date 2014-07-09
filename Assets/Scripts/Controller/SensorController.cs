@@ -12,27 +12,30 @@ public class SensorController : MonoBehaviour {
         public AttachmentController AttachedTo {get; set;}
         public Vector3 Position {get; set;}
         public bool Visible {get; set;}
+        public string Name {get; set;}
 
         public Entry(AttachmentController obj, bool visible)
         {
             Object = obj;
             Position = obj.transform.position;
             Visible = visible;
+            Name = obj.name;
         }
 
         public void Update(bool visible)
         {
             Visible = visible;
-            if (Visible)
+            if (Visible && Object != null)
             {
                 Position = Object.transform.position;
                 AttachedTo = Object.ParentAttachment;
+                Name = Object.name;
             }
         }
 
         public Vector3 GetPosition()
         {
-            if (Visible)
+            if (Visible && Object != null)
             {
                 return Object.transform.position;
             }
@@ -40,11 +43,19 @@ public class SensorController : MonoBehaviour {
         }
         public AttachmentController GetAttachedTo()
         {
-            if (Visible)
+            if (Visible && Object != null)
             {
                 return Object.ParentAttachment;
             }
             return AttachedTo;
+        }
+        public string GetName()
+        {
+            if (Visible && Object != null)
+            {
+                return Object.name;
+            }
+            return Name;
         }
     }
 

@@ -38,7 +38,7 @@ public class FlightComputerController : MonoBehaviour {
     public Dictionary<Controls, List<EngineEntity>> Engines {get; protected set;}
     public AttachmentController ParentController = null;
     private static float Half = Mathf.Sqrt(2) * 0.5f;
-    private static float Zero = 0.00001f;
+    private static float Zero = 0.01f;
 
     void Start()
     {
@@ -65,7 +65,6 @@ public class FlightComputerController : MonoBehaviour {
         {
             Engines[control] = new List<EngineEntity>();
         }
-        Debug.Log("Adding engine: " + engine.name + " to " + control.ToString());
         Engines[control].Add(new EngineEntity(engine, distance));
     }
     public void AddEngine(EngineController engine)
@@ -80,21 +79,17 @@ public class FlightComputerController : MonoBehaviour {
             Debug.Log("Cannot add engine without a parent controller");
             return;
         }
-        Debug.Log("Adding engine: " + engine.name);
 
         Vector3 localPosition = transform.worldToLocalMatrix.MultiplyPoint3x4(engine.transform.position);
 
         Vector3 toCOM = ParentController.CenterOfMass - localPosition;
         Vector3 normToCOM = toCOM.normalized;
-        Debug.Log(ParentController.CenterOfMass + " | " + localPosition);
         float distance = toCOM.magnitude;
 
         float goForward = Vector3.Dot(normToCOM, Vector3.forward);
         float goRight = Vector3.Dot(normToCOM, Vector3.right);
         float goUp = Vector3.Dot(normToCOM, Vector3.up);
-        Debug.Log("ToCOM: " + normToCOM);
-        Debug.Log("F: " + goForward + ", R: " + goRight + ", U: " + goUp);
-        Vector3 angle = Vector3.Cross(engine.transform.forward, normToCOM);
+        Vector3 angle = Vector3.Cross(transform.worldToLocalMatrix.MultiplyVector(engine.transform.forward), normToCOM);
 
         // Check if going forward
         if (goForward > Half)

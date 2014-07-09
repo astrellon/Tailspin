@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 public class AttachmentController : MonoBehaviour {
 
-    public class PullTogether {
+    public class PullTogether 
+    {
         public HardpointController Point { get; private set; }
         public AttachmentController Attachment { get; private set; }
         public PullableController AttachmentPullable { get; private set; }
@@ -397,14 +398,12 @@ public class AttachmentController : MonoBehaviour {
             {
                 continue;
             }
-            Debug.Log(pair.Value.name + ": " + rigid.worldCenterOfMass + ", " + rigid.mass);
             com += rigid.worldCenterOfMass * rigid.mass;
             mass += rigid.mass;
         }
         if (mass > 0.0f)
         {
-            CenterOfMass = (com / mass) - transform.position;
-            Debug.Log(transform.name + ": Calced COM: " + CenterOfMass + " | " + transform.position);
+            CenterOfMass = transform.worldToLocalMatrix.MultiplyPoint3x4(com / mass);
         }
         TotalMass = mass;
     }

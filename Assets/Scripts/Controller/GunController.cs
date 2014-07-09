@@ -40,13 +40,21 @@ public class GunController : AttachmentController {
             {
                 Vector3 position = obj.transform.position + obj.transform.forward * 1.0f;
                 GameObject newBullet = Instantiate(BulletPrefab, position, obj.transform.rotation) as GameObject;
+                // Bullets along the direction vector get a speed boost.
                 Vector3 speedBoost = Vector3.Project(rigidbody.velocity, obj.transform.forward);
+
                 Vector3 velo = obj.transform.forward * BulletSpeed + speedBoost;
                 newBullet.rigidbody.velocity = velo;
+
+                // Bullets cannot collide with the gun that fired it.
                 if (collider != null)
                 {
                     Physics.IgnoreCollision(newBullet.collider, collider);
                 }
+
+                // Bullets also do not collide with the attachment chain that fired it.
+                // This could be changed to a distance or timer so that it can collide 
+                // but not immediately after being fired.
                 AttachmentController parent = ParentAttachment;
                 while (parent != null)
                 {

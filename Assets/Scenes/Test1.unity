@@ -2798,6 +2798,11 @@ MonoBehaviour:
   FlightSpeed: 8000
   RotateTorque: 800
   Hull: 10
+  MaxHull: 10
+  Shields: 10
+  MaxShields: 0
+  ShieldRegen: 1
+  ShieldWaitTime: 3
   CurrentGunGroup: laser1
   FlightComputer: {fileID: 960598589}
 --- !u!82 &960598592
@@ -3722,8 +3727,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: CurrentTarget
+      value: 
+      objectReference: {fileID: 960598585}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
     - {fileID: 6500000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
@@ -5575,7 +5584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1924962908
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5655,8 +5664,14 @@ MonoBehaviour:
   FlightSpeed: 10000
   RotateTorque: 1000
   Hull: 3
+  MaxHull: 10
+  Shields: 10
+  MaxShields: 10
+  ShieldRegen: 1
+  ShieldWaitTime: 3
   CurrentGunGroup: laser1
   FlightComputer: {fileID: 0}
+  CurrentTarget: {fileID: 960598585}
 --- !u!54 &1924962910
 Rigidbody:
   m_ObjectHideFlags: 0

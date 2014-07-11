@@ -40,6 +40,11 @@ public class GunController : AttachmentController {
             {
                 Vector3 position = obj.transform.position + obj.transform.forward * 1.0f;
                 GameObject newBullet = Instantiate(BulletPrefab, position, obj.transform.rotation) as GameObject;
+                BulletController controller = newBullet.GetComponent<BulletController>();
+                if (controller != null)
+                {
+                    controller.Owner = gameObject;
+                }
                 // Bullets along the direction vector get a speed boost.
                 Vector3 speedBoost = Vector3.Project(rigidbody.velocity, obj.transform.forward);
 

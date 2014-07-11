@@ -6,16 +6,19 @@ public class BulletController : MonoBehaviour {
     public GameObject SparkPrefab;
     public float Lifetime = 3.0f;
     public float Damage = 1.0f;
+    public GameObject Owner = null;
     private Transform Remaining;
     private float Timeout = 0.0f;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         Remaining = transform.Find("Remaining");
         Timeout = Time.time + Lifetime;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (Time.time > Timeout)
         {
             DestroyBullet(transform.position, transform.forward);

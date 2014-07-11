@@ -165,15 +165,16 @@ public class AttachmentController : MonoBehaviour {
             return false;
         }
 
-        FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
         // Move into position then attach.
         if (attachment.rigidbody == null)
         {
             Debug.Log("Cannot attach if it does not have a rigidbody!");
             return false;
         }
+        FixedJoint joint = gameObject.AddComponent("FixedJoint") as FixedJoint; 
 
         RotateConnect(point.transform, attachment.transform, attachmentPoint.transform);
+        //attachment.transform.parent = transform;
 
         Vector3 translate = point.transform.position - attachmentPoint.transform.position;
         attachment.transform.Translate(translate, Space.World);

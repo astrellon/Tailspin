@@ -36,7 +36,7 @@ public class FlightComputerController : MonoBehaviour {
     }
 
     public Dictionary<Controls, List<EngineEntity>> Engines {get; protected set;}
-    public AttachmentController ParentController = null;
+    public ShipController Ship = null;
     private static float Half = Mathf.Sqrt(2) * 0.5f;
     private static float Zero = 0.01f;
 
@@ -58,6 +58,33 @@ public class FlightComputerController : MonoBehaviour {
             return;
         }
     }
+    /*
+    public Vector3 CalculateTorqueToFace(GameObject target)
+    {
+        Vector3 toTarget = target.transform.position - transform.position;
+        Vector3 normToTarget = toTarget.normalized;
+        normToTarget = transform.worldToLocalMatrix.MultiplyVector(normToTarget);
+
+        Quaternion angles = Quaternion.FromToRotation(Vector3.forward, normToTarget);
+        Vector3 eulerAngles = angles.eulerAngles;
+        if (eulerAngles.x > 180.0f) { eulerAngles.x -= 360.0f; }
+        if (eulerAngles.y > 180.0f) { eulerAngles.y -= 360.0f; }
+        if (eulerAngles.z > 180.0f) { eulerAngles.z -= 360.0f; }
+        eulerAngles = eulerAngles * Mathf.Deg2Rad;
+
+        Vector3 totalTimeVec = eulerAngles / Ship.RotateTorque;
+        float totalTime = Mathf.Max(totalTimeVec.x, totalTimeVec.y, totalTimeVec.z);
+
+
+        return eulerAngles;
+    }
+    */
+    public static Vector3 MaxVelocity()
+    {
+
+
+        return new Vector3();
+    }
 
     private void AddEngine(EngineController engine, float distance, Controls control)
     {
@@ -74,7 +101,7 @@ public class FlightComputerController : MonoBehaviour {
             Debug.Log("Cannot add null engine.");
             return;
         }
-        if (ParentController == null)
+        if (Ship == null)
         {
             Debug.Log("Cannot add engine without a parent controller");
             return;
@@ -82,7 +109,7 @@ public class FlightComputerController : MonoBehaviour {
 
         Vector3 localPosition = transform.worldToLocalMatrix.MultiplyPoint3x4(engine.transform.position);
 
-        Vector3 toCOM = ParentController.CenterOfMass - localPosition;
+        Vector3 toCOM = Ship.CenterOfMass - localPosition;
         Vector3 normToCOM = toCOM.normalized;
         float distance = toCOM.magnitude;
 

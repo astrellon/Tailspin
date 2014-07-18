@@ -70,6 +70,11 @@ public class AttachmentController : MonoBehaviour {
 
     protected virtual void AttachmentUpdate () 
     {
+        CheckPullingObjects();
+    }
+
+    protected virtual void CheckPullingObjects()
+    {
         bool updateConnected = false;
         for (int i = PullingTogether.Count - 1; i >= 0; i--)
         {

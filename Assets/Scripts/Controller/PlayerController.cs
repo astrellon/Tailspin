@@ -69,7 +69,6 @@ public class PlayerController : ShipController {
         if (Input.GetMouseButton(0)) 
         {
             CallAttachmentInterfaceByGroup(CurrentGunGroup, "Fire");
-            //FireGun();
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {

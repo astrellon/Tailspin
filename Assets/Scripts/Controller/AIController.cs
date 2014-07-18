@@ -9,32 +9,56 @@ public class AIController : ShipController
     {
         AttachmentStart();
     }
+    /**
+     * Returns the smaller value, however it takes the sign of input into
+     * account. So if input is negative then the value closer to zero out
+     * of input and -max will be returned.
+     */
+    float Smallest(float max, float input)
+    {
+        if (input < 0.0f)
+        {
+            return input < -max ? -max : input;
+        }
+        return input > max ? max : input;
+    }
 	void Update () 
     {
         ShipUpdate();
 
         if (CurrentTarget != null)
         {
-            Vector3 toTarget = CurrentTarget.transform.position - transform.position;
+            Vector3 targetPosition = transform.position;// - rigidbody.velocity * Time.fixedDeltaTime;
+            Vector3 toTarget = CurrentTarget.transform.position - targetPosition;
             Vector3 normToTarget = toTarget.normalized;
             normToTarget = transform.worldToLocalMatrix.MultiplyVector(normToTarget);
 
-            Quaternion angles = Quaternion.FromToRotation(Vector3.forward, normToTarget);
-            Vector3 eulerAngles = angles.eulerAngles;
-            if (eulerAngles.x > 180.0f) { eulerAngles.x -= 360.0f; }
-            if (eulerAngles.y > 180.0f) { eulerAngles.y -= 360.0f; }
-            if (eulerAngles.z > 180.0f) { eulerAngles.z -= 360.0f; }
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.forward, normToTarget);
+            Vector3 angles = rotation.eulerAngles * Mathf.Deg2Rad;
+            if (angles.x > Mathf.PI) { angles.x -= Mathf.PI * 2.0f; }
+            if (angles.y > Mathf.PI) { angles.y -= Mathf.PI * 2.0f; }
+            if (angles.z > Mathf.PI) { angles.z -= Mathf.PI * 2.0f; }
 
-            Vector3 rotateBy = new Vector3();
-            float factor = 1.0f;
-            float zero = 0.01f;
-            rotateBy.x = (eulerAngles.x >  zero ?  factor : 
-                         (eulerAngles.x < -zero ? -factor : 0.0f));
-            rotateBy.y = (eulerAngles.y >  zero ?  factor : 
-                         (eulerAngles.y < -zero ? -factor : 0.0f));
-            rotateBy.z = (eulerAngles.z >  zero ?  factor :
-                         (eulerAngles.z < -zero ? -factor : 0.0f));
-            Rotate(rotateBy.x, rotateBy.y, rotateBy.z);
+            Vector3 factor = new Vector3();
+
+            const float zero = 0.01f;
+
+            factor.x = Mathf.Abs(angles.x) < zero ? 0.0f : Smallest(1.0f, angles.x * 4.0f);
+            factor.y = Mathf.Abs(angles.y) < zero ? 0.0f : Smallest(1.0f, angles.y * 4.0f);
+            factor.z = Mathf.Abs(angles.z) < zero ? 0.0f : Smallest(1.0f, angles.z * 4.0f);
+            Rotate(factor.x, factor.y, factor.z);
+
+            Vector3 move = new Vector3(0.5f, 0, 0);
+            if (toTarget.magnitude > 16)
+            {
+                move.z = 0.5f;
+            }
+            else if (toTarget.magnitude < 14)
+            {
+                move.z = -0.5f;
+            }
+            MoveDirection(move.x, move.y, move.z);
+            CallAttachmentInterfaceByGroup(CurrentGunGroup, "Fire");
         }
 	}
 }

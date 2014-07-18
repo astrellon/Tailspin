@@ -86,11 +86,40 @@ public class ShipController : AttachmentController {
         return result;
     }
 
+    protected override void CheckPullingObjects()
+    {
+        SensorController sensors = GetComponent<SensorController>();
+        if (sensors == null)
+        {
+            return;
+        }
+
+        IDictionary<int, SensorController.Entry> entries = sensors.GetEntries();
+
+        for (int i = PullingTogether.Count - 1; i >= 0; i--)
+        {
+            PullTogether pull = PullingTogether[i];
+            int id = pull.Attachment.gameObject.GetInstanceID();
+            if (!entries.ContainsKey(id))
+            {
+                PullingTogether.RemoveAt(i);
+                continue;
+            }
+            
+            SensorController.Entry entry = entries[id];
+            if (!entry.Visible)
+            {
+                PullingTogether.RemoveAt(i);
+                continue;
+            }
+        }
+        base.CheckPullingObjects();
+    }
+
     protected void ShipUpdate()
     {
         if (Shields < MaxShields)
         {
-            Debug.Log("Hit times: " + LastHitTime + ", " + ShieldWaitTime + " | " + Time.time);
             if (LastHitTime + ShieldWaitTime < Time.time)
             {
                 Shields += ShieldRegen * Time.deltaTime;
@@ -162,19 +191,28 @@ public class ShipController : AttachmentController {
         return false;
     }
 
+    public float Largest(float x, float y)
+    {
+        if (Mathf.Abs(x) > Mathf.Abs(y))
+        {
+            return x;
+        }
+        return y;
+    }
+
     private Vector4 MoveAccum = new Vector4();
     private Vector4 RotateAccum = new Vector4();
     public void MoveDirection(float x, float y, float z)
     {
-        MoveAccum.x += x;
-        MoveAccum.y += y;
-        MoveAccum.z += z;
+        MoveAccum.x = Largest(x, MoveAccum.x);
+        MoveAccum.y = Largest(y, MoveAccum.y);
+        MoveAccum.z = Largest(z, MoveAccum.z);
     }
     public void Rotate(float x, float y, float z)
     {
-        RotateAccum.x += x;
-        RotateAccum.y += y;
-        RotateAccum.z += z;
+        RotateAccum.x = Largest(x, RotateAccum.x);
+        RotateAccum.y = Largest(y, RotateAccum.y);
+        RotateAccum.z = Largest(z, RotateAccum.z);
     }
 
     public bool IsDead()
@@ -201,6 +239,12 @@ public class ShipController : AttachmentController {
                 {
                     GameObject death = Instantiate(ShipDeath, transform.position, Quaternion.identity) as GameObject;
                     death.transform.parent = transform.parent;
+                }
+
+                Camera camera = transform.GetComponentInChildren<Camera>();
+                if (camera == Camera.main)
+                {
+                    camera.transform.parent = null;
                 }
                 DestroyAttachment();
                 Destroy(transform.gameObject);

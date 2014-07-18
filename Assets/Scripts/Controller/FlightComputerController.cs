@@ -58,32 +58,26 @@ public class FlightComputerController : MonoBehaviour {
             return;
         }
     }
-    /*
-    public Vector3 CalculateTorqueToFace(GameObject target)
+
+    public static Vector3 MaxVelocity(Vector3 acc, Vector3 distance, Vector3 vstart, Vector3 vend)
     {
-        Vector3 toTarget = target.transform.position - transform.position;
-        Vector3 normToTarget = toTarget.normalized;
-        normToTarget = transform.worldToLocalMatrix.MultiplyVector(normToTarget);
+        Vector3 vx = Vector3.Scale(acc, distance);
+        Vector3 vstart2 = new Vector3(vstart.x, vstart.y, vstart.z);
+        vstart2.x *= Mathf.Abs(vstart.x);
+        vstart2.y *= Mathf.Abs(vstart.y);
+        vstart2.z *= Mathf.Abs(vstart.z);
 
-        Quaternion angles = Quaternion.FromToRotation(Vector3.forward, normToTarget);
-        Vector3 eulerAngles = angles.eulerAngles;
-        if (eulerAngles.x > 180.0f) { eulerAngles.x -= 360.0f; }
-        if (eulerAngles.y > 180.0f) { eulerAngles.y -= 360.0f; }
-        if (eulerAngles.z > 180.0f) { eulerAngles.z -= 360.0f; }
-        eulerAngles = eulerAngles * Mathf.Deg2Rad;
+        Vector3 vend2 = new Vector3(vend.x, vend.y, vend.z);
+        vend2.x *= Mathf.Abs(vend.x);
+        vend2.y *= Mathf.Abs(vend.y);
+        vend2.z *= Mathf.Abs(vend.z);
 
-        Vector3 totalTimeVec = eulerAngles / Ship.RotateTorque;
-        float totalTime = Mathf.Max(totalTimeVec.x, totalTimeVec.y, totalTimeVec.z);
+        vx = vx + (vstart2 + vend2) * 0.5f;
+        vx.x = Mathf.Sqrt(vx.x);
+        vx.y = Mathf.Sqrt(vx.y);
+        vx.z = Mathf.Sqrt(vx.z);
 
-
-        return eulerAngles;
-    }
-    */
-    public static Vector3 MaxVelocity()
-    {
-
-
-        return new Vector3();
+        return vx;
     }
 
     private void AddEngine(EngineController engine, float distance, Controls control)

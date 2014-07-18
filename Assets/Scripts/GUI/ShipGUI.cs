@@ -75,7 +75,7 @@ public class ShipGUI : MonoBehaviour {
             IDictionary<int, SensorController.Entry> entries = sensors.GetEntries();
             foreach (KeyValuePair<int, SensorController.Entry> pair in entries)
             {
-                if (pair.Value.GetAttachedTo() == Ship || pair.Value.Object == Ship)
+                if (pair.Value.GetAttachedTo() != null || pair.Value.Object == Ship)
                 {
                     continue;
                 }
@@ -88,8 +88,9 @@ public class ShipGUI : MonoBehaviour {
 
                 float dist = Vector4.Distance(pair.Value.GetPosition(), Ship.transform.position);
                 string entryText = pair.Value.GetName() + " (" + dist.ToString("N") + ")";
-                string text = "<color=" + colour + ">" + entryText + " </color>";
-                nearby += "\n" + text;
+                string guiEntryText = "<color=" + colour + ">" + entryText + " </color>";
+                string hudEntryText = "<color=" + colour + ">" + entryText + "\n" + pair.Value.GetHUDInfo() + "</color>";
+                nearby += "\n" + guiEntryText;
 
                 Vector3 screenPos = cam.WorldToScreenPoint(pair.Value.GetPosition());
                 if (screenPos.z < 0)
@@ -97,7 +98,7 @@ public class ShipGUI : MonoBehaviour {
                     continue;
                 }
 
-                GUI.Label(new Rect(screenPos.x - 40, cam.pixelHeight - screenPos.y + 10, 80, 20), text, style);
+                GUI.Label(new Rect(screenPos.x - 40, cam.pixelHeight - screenPos.y + 10, 80, 20), hudEntryText, style);
             }
 
             if (Nearby != null)

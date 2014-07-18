@@ -2276,7 +2276,7 @@ MonoBehaviour:
   - {fileID: 11400004, guid: 260b02b5fce73e34aab03b8982779236, type: 2}
   - {fileID: 11400000, guid: e53a6e1e986d7a546b10b0cb6557b52e, type: 2}
   - {fileID: 11400008, guid: 3b97f613627e6d74cab185660cf670b6, type: 2}
-  MaxNumberRooms: 10
+  MaxNumberRooms: 1
 --- !u!1 &747706353
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557fd6dd3e792ac47860296924f2b5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ParentController: {fileID: 960598591}
+  Ship: {fileID: 0}
 --- !u!54 &960598590
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2800,11 +2800,11 @@ MonoBehaviour:
   Hull: 10
   MaxHull: 10
   Shields: 10
-  MaxShields: 0
+  MaxShields: 10
   ShieldRegen: 1
   ShieldWaitTime: 3
   CurrentGunGroup: laser1
-  FlightComputer: {fileID: 960598589}
+  FlightComputer: {fileID: 0}
 --- !u!82 &960598592
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5578,6 +5578,7 @@ GameObject:
   - 82: {fileID: 1924962908}
   - 23: {fileID: 1924962911}
   - 64: {fileID: 1924962912}
+  - 114: {fileID: 1924962906}
   m_Layer: 9
   m_Name: EnemyShip
   m_TagString: Untagged
@@ -5585,6 +5586,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1924962906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1924962905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec37b00d909d4254587f8d1be3c87cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 50
 --- !u!82 &1924962908
 AudioSource:
   m_ObjectHideFlags: 0

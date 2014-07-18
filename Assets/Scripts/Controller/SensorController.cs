@@ -57,6 +57,23 @@ public class SensorController : MonoBehaviour {
             }
             return Name;
         }
+        public string GetHUDInfo()
+        {
+            if (Object == null)
+            {
+                return "<Destroyed>";
+            }
+            if (Visible)
+            {
+                ShipController isShip = Object as ShipController;
+                if (isShip != null)
+                {
+                    return "Hull: " + isShip.Hull + "\nShields: " + isShip.Shields;
+                }
+                return "Type: " + Object.AttachmentType;
+            }
+            return "<Out of Range>";
+        }
     }
 
     protected Dictionary<int, Entry> Entries = new Dictionary<int, Entry>();
@@ -104,7 +121,7 @@ public class SensorController : MonoBehaviour {
             {
                 visible = true;
             }
-            int id = attachment.GetInstanceID(); 
+            int id = attachment.gameObject.GetInstanceID(); 
             if (Entries.ContainsKey(id))
             {
                 Entries[id].Update(visible);

@@ -191,7 +191,7 @@ public class ShipController : AttachmentController {
         return false;
     }
 
-    public float Largest(float x, float y)
+    public float Largest(float x, float y, float maximum = 0.0f)
     {
         if (Mathf.Abs(x) > Mathf.Abs(y))
         {
@@ -221,6 +221,7 @@ public class ShipController : AttachmentController {
     }
     public void DealDamage(float damage)
     {
+        return;
         if (!IsDead())
         {
             if (Shields > 0.0f)
@@ -255,6 +256,13 @@ public class ShipController : AttachmentController {
     void FixedUpdate()
     {
         rigidbody.AddRelativeForce (MoveAccum.x * FlightSpeed, MoveAccum.y * FlightSpeed, MoveAccum.z * FlightSpeed);
+        // CHANGE TO NOT A UNIT VECTOR, THE AMOUNT OF ROTATION THAT THE SHIP CAN DO
+        // ON ONE AXIS DOES NOT AFFECT THE OTHER AXES!
+        float mag = RotateAccum.magnitude;
+        if (mag > 1.0f)
+        {
+            RotateAccum /= mag;
+        }
         rigidbody.AddRelativeTorque(RotateAccum.x * RotateTorque, RotateAccum.y * RotateTorque, RotateAccum.z * RotateTorque);
         MoveAccum.x = MoveAccum.y = MoveAccum.z = 0.0f;
         RotateAccum.x = RotateAccum.y = RotateAccum.z = 0.0f;

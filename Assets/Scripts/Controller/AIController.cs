@@ -28,8 +28,7 @@ public class AIController : ShipController
 
         if (CurrentTarget != null)
         {
-            Vector3 targetPosition = transform.position;// - rigidbody.velocity * Time.fixedDeltaTime;
-            Vector3 toTarget = CurrentTarget.transform.position - targetPosition;
+            Vector3 toTarget = CurrentTarget.transform.position - transform.position;
             Vector3 normToTarget = toTarget.normalized;
             normToTarget = transform.worldToLocalMatrix.MultiplyVector(normToTarget);
 
@@ -43,12 +42,21 @@ public class AIController : ShipController
 
             const float zero = 0.01f;
 
+            // Currently using the magic number 4 to muliply the angles to rotate by.
+            // The actual values will be clamped to [-1.0f, 1.0f] when Rotate is used.
+            // Really what there needs to be is a curve that defines the amount of 
+            // thrust required to turn by a given amount that would cap at the maximum
+            // when it's fairly close to the target but quickly ramp down when it's 
+            // very close to prevent it from constantly overshooting.
+            // This curve would probably be defined by the angular velocity that
+            // the ship can change by per second, which would be related to it's 
+            // engine torque output and moment of inertia.
             factor.x = Mathf.Abs(angles.x) < zero ? 0.0f : Smallest(1.0f, angles.x * 4.0f);
             factor.y = Mathf.Abs(angles.y) < zero ? 0.0f : Smallest(1.0f, angles.y * 4.0f);
             factor.z = Mathf.Abs(angles.z) < zero ? 0.0f : Smallest(1.0f, angles.z * 4.0f);
             Rotate(factor.x, factor.y, factor.z);
 
-            Vector3 move = new Vector3(0.5f, 0, 0);
+            Vector3 move = new Vector3(1, 0, 0);
             if (toTarget.magnitude > 16)
             {
                 move.z = 0.5f;

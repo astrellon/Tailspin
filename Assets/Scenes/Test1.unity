@@ -2778,7 +2778,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &960598591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,8 +2795,8 @@ MonoBehaviour:
   AttachmentGroup: group
   PullRadius: 10
   ShipDeath: {fileID: 100000, guid: a61f35695be5dcf459967aed28325ccf, type: 2}
-  FlightSpeed: 8000
-  RotateTorque: 800
+  FlightSpeed: 10000
+  RotateTorque: 1000
   Hull: 10
   MaxHull: 10
   Shields: 10
@@ -3733,6 +3733,10 @@ Prefab:
       propertyPath: CurrentTarget
       value: 
       objectReference: {fileID: 960598585}
+    - target: {fileID: 5400000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
     - {fileID: 6500000, guid: 1971a2c171ce6ed4fa2d62b0c4ce17cf, type: 2}
@@ -5700,7 +5704,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!23 &1924962911
 Renderer:
   m_ObjectHideFlags: 0

@@ -22,17 +22,41 @@ public class BulletController : MonoBehaviour {
         if (Time.time > Timeout)
         {
             DestroyBullet(transform.position, transform.forward);
+            return;
         }
 	}
 
+    void FixedUpdate()
+    {
+        if (this == null)
+        {
+            return;
+        }
+        Vector3 newPosition = transform.position + rigidbody.velocity * Time.fixedDeltaTime;
+        RaycastHit hit;
+        if (Physics.Linecast(transform.position, newPosition, out hit))
+        {
+            if (hit.collider.gameObject != Owner)
+            {
+                OnCollision(hit.collider, hit.point, hit.normal);
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision collision) 
     {
-        ShipController ship = collision.collider.GetComponent<ShipController>();
+        OnCollision(collision.collider, collision.contacts[0].point, collision.contacts[0].normal);
+    }
+
+    void OnCollision(Collider coll, Vector3 point, Vector3 normal)
+    {
+        ShipController ship = coll.GetComponent<ShipController>();
         if (ship != null)
         {
             ship.DealDamage(Damage);
         }
-        DestroyBullet(collision.contacts[0].point, collision.contacts[0].normal);
+        DestroyBullet(point, normal);
+    
     }
 
     void DestroyBullet(Vector3 position, Vector3 direction)

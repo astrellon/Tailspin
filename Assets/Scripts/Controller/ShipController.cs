@@ -204,15 +204,15 @@ public class ShipController : AttachmentController {
     private Vector4 RotateAccum = new Vector4();
     public void MoveDirection(float x, float y, float z)
     {
-        MoveAccum.x = Largest(x, MoveAccum.x);
-        MoveAccum.y = Largest(y, MoveAccum.y);
-        MoveAccum.z = Largest(z, MoveAccum.z);
+        MoveAccum.x = Mathf.Clamp(Largest(x, MoveAccum.x), -1.0f, 1.0f);
+        MoveAccum.y = Mathf.Clamp(Largest(y, MoveAccum.y), -1.0f, 1.0f);
+        MoveAccum.z = Mathf.Clamp(Largest(z, MoveAccum.z), -1.0f, 1.0f);
     }
     public void Rotate(float x, float y, float z)
     {
-        RotateAccum.x = Largest(x, RotateAccum.x);
-        RotateAccum.y = Largest(y, RotateAccum.y);
-        RotateAccum.z = Largest(z, RotateAccum.z);
+        RotateAccum.x = Mathf.Clamp(Largest(x, RotateAccum.x), -1.0f, 1.0f);
+        RotateAccum.y = Mathf.Clamp(Largest(y, RotateAccum.y), -1.0f, 1.0f);
+        RotateAccum.z = Mathf.Clamp(Largest(z, RotateAccum.z), -1.0f, 1.0f);
     }
 
     public bool IsDead()
@@ -258,11 +258,13 @@ public class ShipController : AttachmentController {
         rigidbody.AddRelativeForce (MoveAccum.x * FlightSpeed, MoveAccum.y * FlightSpeed, MoveAccum.z * FlightSpeed);
         // CHANGE TO NOT A UNIT VECTOR, THE AMOUNT OF ROTATION THAT THE SHIP CAN DO
         // ON ONE AXIS DOES NOT AFFECT THE OTHER AXES!
+        /*
         float mag = RotateAccum.magnitude;
         if (mag > 1.0f)
         {
             RotateAccum /= mag;
         }
+        */
         rigidbody.AddRelativeTorque(RotateAccum.x * RotateTorque, RotateAccum.y * RotateTorque, RotateAccum.z * RotateTorque);
         MoveAccum.x = MoveAccum.y = MoveAccum.z = 0.0f;
         RotateAccum.x = RotateAccum.y = RotateAccum.z = 0.0f;

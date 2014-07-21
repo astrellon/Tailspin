@@ -43,7 +43,7 @@ public class GunController : AttachmentController {
                 BulletController controller = newBullet.GetComponent<BulletController>();
                 if (controller != null)
                 {
-                    controller.Owner = gameObject;
+                    controller.Owner = this;
                 }
                 // Bullets along the direction vector get a speed boost.
                 Vector3 speedBoost = Vector3.Project(rigidbody.velocity, obj.transform.forward);

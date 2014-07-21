@@ -413,4 +413,19 @@ public class AttachmentController : MonoBehaviour {
         }
         TotalMass = mass;
     }
+
+    public virtual bool IsParentOf(AttachmentController attachment)
+    {
+        if (attachment == this)
+        {
+            return true;
+        }
+        
+        AttachmentController parent = attachment.ParentAttachment;
+        while (parent != null && parent != this)
+        {
+            parent = parent.ParentAttachment;
+        }
+        return parent == this;
+    }
 }

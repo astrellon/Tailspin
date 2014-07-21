@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class AIController : ShipController
 {
     public GameObject CurrentTarget = null;
+    private Vector3 RotateFactor = Vector3.zero;
     void Start () 
     {
         AttachmentStart();
@@ -21,6 +22,11 @@ public class AIController : ShipController
             return input < -max ? -max : input;
         }
         return input > max ? max : input;
+    }
+    void OnGUI()
+    {
+        GUI.Label(new Rect(100, 10, 100, 20), RotateFactor.ToString());
+
     }
 	void Update () 
     {
@@ -42,7 +48,7 @@ public class AIController : ShipController
 
             const float zero = 0.01f;
 
-            // Currently using the magic number 4 to muliply the angles to rotate by.
+            // Currently using the magic number 10 to muliply the angles to rotate by.
             // The actual values will be clamped to [-1.0f, 1.0f] when Rotate is used.
             // Really what there needs to be is a curve that defines the amount of 
             // thrust required to turn by a given amount that would cap at the maximum
@@ -51,17 +57,18 @@ public class AIController : ShipController
             // This curve would probably be defined by the angular velocity that
             // the ship can change by per second, which would be related to it's 
             // engine torque output and moment of inertia.
-            factor.x = Mathf.Abs(angles.x) < zero ? 0.0f : Smallest(1.0f, angles.x * 4.0f);
-            factor.y = Mathf.Abs(angles.y) < zero ? 0.0f : Smallest(1.0f, angles.y * 4.0f);
-            factor.z = Mathf.Abs(angles.z) < zero ? 0.0f : Smallest(1.0f, angles.z * 4.0f);
+            factor.x = Mathf.Abs(angles.x) < zero ? 0.0f : Smallest(1.0f, angles.x * 10.0f);
+            factor.y = Mathf.Abs(angles.y) < zero ? 0.0f : Smallest(1.0f, angles.y * 10.0f);
+            factor.z = Mathf.Abs(angles.z) < zero ? 0.0f : Smallest(1.0f, angles.z * 10.0f);
+            RotateFactor = factor;
             Rotate(factor.x, factor.y, factor.z);
 
             Vector3 move = new Vector3(1, 0, 0);
-            if (toTarget.magnitude > 16)
+            if (toTarget.magnitude > 21)
             {
                 move.z = 0.5f;
             }
-            else if (toTarget.magnitude < 14)
+            else if (toTarget.magnitude < 19)
             {
                 move.z = -0.5f;
             }

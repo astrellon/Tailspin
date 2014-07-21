@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour {
     public GameObject SparkPrefab;
     public float Lifetime = 3.0f;
     public float Damage = 1.0f;
-    public GameObject Owner = null;
+    public GunController Owner = null;
     private Transform Remaining;
     private float Timeout = 0.0f;
 	// Use this for initialization
@@ -36,9 +36,13 @@ public class BulletController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Linecast(transform.position, newPosition, out hit))
         {
-            if (hit.collider.gameObject != Owner)
+            if (hit.collider.gameObject != Owner.gameObject)
             {
-                OnCollision(hit.collider, hit.point, hit.normal);
+                AttachmentController isAttachment = hit.collider.GetComponent<AttachmentController>();
+                if (isAttachment == null || !isAttachment.IsParentOf(Owner))
+                {
+                    OnCollision(hit.collider, hit.point, hit.normal);
+                }
             }
         }
     }
